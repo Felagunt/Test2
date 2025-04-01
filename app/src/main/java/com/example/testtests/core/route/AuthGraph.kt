@@ -7,9 +7,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.testtests.presentation.auth.LogInScreenRoot
-import com.example.testtests.presentation.auth.LogInViewModel
-import com.example.testtests.presentation.dashboard.Onboarding
+import com.example.ui.auth.LogInScreenRoot
+import com.example.ui.auth.LogInViewModel
+import com.example.ui.dashboard.Onboarding
 
 @Composable
 fun AuthGraph(navController: NavHostController) {
@@ -22,7 +22,7 @@ fun AuthGraph(navController: NavHostController) {
             startDestination = Auth.Onboarding
         ) {
             composable<Auth.Onboarding> {
-                Onboarding(
+                com.example.ui.dashboard.Onboarding(
                     onClick = {
                         navController.navigate(Auth.LogIn) {
                             popUpTo<Auth.Onboarding> {
@@ -36,8 +36,8 @@ fun AuthGraph(navController: NavHostController) {
             }
 
             composable<Auth.LogIn> {
-                val viewModel = hiltViewModel<LogInViewModel>()
-                LogInScreenRoot(
+                val viewModel = hiltViewModel<com.example.ui.auth.LogInViewModel>()
+                com.example.ui.auth.LogInScreenRoot(
                     viewModel = viewModel,
                     onLogInClick = {
                         navController.navigate(SubGraph.DestGraph) {
@@ -49,7 +49,6 @@ fun AuthGraph(navController: NavHostController) {
                     }
                 )
             }
-
         }
 
     }

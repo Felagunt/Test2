@@ -21,14 +21,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.example.testtests.presentation.auth.LogInScreenRoot
-import com.example.testtests.presentation.auth.LogInViewModel
-import com.example.testtests.presentation.courses_list.AllCoursesScreenRoot
-import com.example.testtests.presentation.courses_list.AllCoursesViewModel
-import com.example.testtests.presentation.dashboard.Onboarding
-import com.example.testtests.presentation.favorite.FavoriteScreenRoot
-import com.example.testtests.presentation.favorite.FavoriteViewModel
-import com.example.testtests.presentation.profile.ProfileScreen
+import com.example.ui.auth.LogInScreenRoot
+import com.example.ui.auth.LogInViewModel
+import com.example.courses.ui.courses_list.AllCoursesScreenRoot
+import com.example.courses.ui.courses_list.AllCoursesViewModel
+import com.example.ui.dashboard.Onboarding
+import com.example.courses.ui.favorite.FavoriteScreenRoot
+import com.example.courses.ui.favorite.FavoriteViewModel
+import com.example.courses.ui.profile.ProfileScreen
 
 @Composable
 fun BottomBar() {

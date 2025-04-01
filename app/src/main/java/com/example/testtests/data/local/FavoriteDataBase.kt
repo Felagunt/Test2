@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.testtests.data.local.entity.CourseEntity
+import com.example.courses.data.local.FavoriteDao
+import com.example.courses.data.local.entity.CourseEntity
 
 
 @Database(
