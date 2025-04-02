@@ -69,29 +69,6 @@ class AllCoursesViewModel @Inject constructor(
         }
     }
 
-//    private fun onFavorite(element: Course) = viewModelScope.launch {
-//        val elem = _state.value.courseList?.find {course ->
-//            course.id == element.id
-//        }
-//        if (element.hasLike) {
-//            _state.update {
-//                it.courseList?.find { course ->
-//                    course.id == element.id
-//                    course.copy(
-//                        hasLike = false
-//                    )
-//                }
-//
-//            }
-//            course.copy(
-//                hasLike = false
-//            )
-//        } else {
-//            course.copy(
-//                hasLike = true
-//            )
-//        }
-//    }
 
     private fun resetSort() {
         _state.update {
@@ -135,8 +112,7 @@ class AllCoursesViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> {
-                        courseList =
-                            result.data?.toMutableList() ?: emptyList<Course>().toMutableList()
+
                         _state.update {
                             it.copy(
                                 isLoading = false,
@@ -144,8 +120,21 @@ class AllCoursesViewModel @Inject constructor(
                                 courseList = result.data
                             )
                         }
+                        syncFavorite(result.data)
                     }
                 }
             }.launchIn(viewModelScope)
     }
+
+    private fun syncFavorite(list: List<Course>?) =
+        viewModelScope.launch {
+            list?.onEach { curse ->
+                if (curse.hasLike) {
+                    insertFavoriteCourseUseCase.invoke(course = curse)
+                } else {
+                    deleteFromFavoriteUseCase.invoke(course = curse)
+                }
+            }
+        }
+
 }

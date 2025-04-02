@@ -16,7 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.auth.ui.R
 import com.example.common.presentation.components.RowChips
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -44,48 +46,52 @@ fun Onboarding(
         "Парсинг",
         "Python-разработчик"
     )
-    Column(
+    Box(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+
     ) {
-        Text(
-            text = "Тысячи курсов в одном месте",
-            minLines = 2,
-            style = MaterialTheme.typography.titleLarge
-        )
-        FlowRow(
-            modifier = Modifier,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            rowList.onEach { item ->
-                RowChips(item)
+            Text(
+                text = stringResource(R.string.tittle_onbording),
+                minLines = 2,
+                style = MaterialTheme.typography.headlineLarge,
+                modifier = Modifier
+                    .padding(32.dp)
+                    //.align(Alignment.CenterHorizontally)
+            )
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                maxLines = 5
+            ) {
+                rowList.onEach { item ->
+                    RowChips(item)
+                }
             }
         }
-        Box(
+        Button(
+            onClick = {
+                onClick()
+            },
             modifier = Modifier
-
+                .fillMaxWidth()
+                .padding(bottom = 40.dp)
+                .align(Alignment.BottomCenter),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary
+            )
         ) {
-            Button(
-                onClick = {
-                    onClick()
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    //.padding(vertical = 32.dp)
-                    .padding(bottom = 20.dp)
-                    .align(Alignment.BottomCenter),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
-                )
-            ) {
-                Text(
-                    text = "Продолжить",
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+            Text(
+                text = stringResource(R.string.continue_btn),
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
     }
 }

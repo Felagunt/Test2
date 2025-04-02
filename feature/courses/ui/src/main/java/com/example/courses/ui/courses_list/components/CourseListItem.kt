@@ -11,9 +11,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.courses.domain.models.Course
+import com.example.courses.ui.R
 
 @Composable
 fun CourseListItem(
@@ -37,13 +39,17 @@ fun CourseListItem(
             )
             Text(
                 text = course.title,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier
+                    .padding(16.dp)
             )
             Text(
                 text = course.text,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier
+                    .padding(16.dp)
             )
             Row(
                 modifier = Modifier
@@ -56,7 +62,7 @@ fun CourseListItem(
                     style = MaterialTheme.typography.titleMedium
                 )
                 Text(
-                    text = "Подробнее ->",
+                    text = stringResource(R.string.about_btn),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.secondary
                 )

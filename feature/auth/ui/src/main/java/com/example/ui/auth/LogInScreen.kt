@@ -23,9 +23,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.auth.ui.R
 import com.example.common.presentation.components.ForgotRow
 
 @Composable
@@ -71,7 +73,7 @@ private fun LogInScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Вход",
+            text = stringResource(R.string.sign_in),
             style = MaterialTheme.typography.displayMedium,
             modifier = Modifier
                 .padding(bottom = 20.dp)
@@ -109,7 +111,7 @@ private fun LogInScreen(
 
 
         Text(
-            text = "Пароль",
+            text = stringResource(R.string.password_txt),
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier
                 .padding(top = 16.dp)
@@ -123,7 +125,7 @@ private fun LogInScreen(
             },
             placeholder = {
                 Text(
-                    text = "Введите пароль",
+                    text = stringResource(R.string.put_password),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.surface
                 )
@@ -155,7 +157,7 @@ private fun LogInScreen(
             )
         ) {
             Text(
-                text = "Вход",
+                text = stringResource(R.string.sign_in),
                 style = MaterialTheme.typography.bodyMedium
             )
         }
