@@ -64,7 +64,7 @@ private fun LogInScreen(
     Column(
         modifier = Modifier
 //            .padding(top = 20.dp)
-            .padding(12.dp)
+            .padding(16.dp)
             .fillMaxSize(),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Center
@@ -108,10 +108,10 @@ private fun LogInScreen(
 
 
         Text(
-            text = "Password",
+            text = "Пароль",
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier
-                .padding(top = 12.dp)
+                .padding(top = 16.dp)
         )
 
         TextField(
@@ -159,7 +159,7 @@ private fun LogInScreen(
             )
         }
         ForgotRow()
-
+        
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -189,7 +189,7 @@ private fun LogInScreen(
                     .padding(12.dp)
                     .fillMaxWidth()
                     .weight(1f),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Yellow)
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF98509))
             ) {
                 Text(
                     text = "OK",

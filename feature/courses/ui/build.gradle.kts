@@ -41,7 +41,6 @@ dependencies {
 
     implementation(project(":common"))
     implementation(project(":feature:courses:domain"))
-    //implementation("app/src/main/res")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
