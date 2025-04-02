@@ -2,7 +2,9 @@ package com.example.common.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
@@ -23,6 +25,8 @@ fun RatingChip(
     Surface(
         shape = RoundedCornerShape(12.dp),
         modifier = modifier,
+//            .height(22.dp)
+//            .width(46.dp),
         color = MaterialTheme.colorScheme.surface,
         tonalElevation = 4.dp
     ) {

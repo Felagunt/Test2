@@ -52,7 +52,7 @@ fun HeaderListItem(
                 .fillMaxWidth()
                 .padding(12.dp)
                 .align(Alignment.BottomStart),
-            horizontalArrangement = Arrangement.Start,
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             RatingChip(course.rate)

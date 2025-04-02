@@ -97,6 +97,7 @@ fun SearchCourseBar(
                 contentDescription = null,
                 modifier = Modifier
                     .weight(0.2f)
+                    .padding(16.dp)
             )
         }
     }

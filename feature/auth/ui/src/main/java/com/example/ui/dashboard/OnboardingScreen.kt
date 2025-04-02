@@ -83,6 +83,7 @@ fun Onboarding(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 40.dp)
+                .padding(16.dp)
                 .align(Alignment.BottomCenter),
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.secondary
