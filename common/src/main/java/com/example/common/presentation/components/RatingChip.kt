@@ -45,7 +45,8 @@ fun RatingChip(
             Text(
                 text = rating,
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier,
+                modifier = Modifier
+                    .padding(4.dp),//TODO
                 //color = MaterialTheme.colorScheme.
 
             )
