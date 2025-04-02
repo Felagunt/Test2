@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -159,6 +160,11 @@ private fun LogInScreen(
             )
         }
         ForgotRow()
+
+        HorizontalDivider(
+            color = MaterialTheme.colorScheme.onSurface,
+            thickness = 2.dp
+        )
         
         Row(
             modifier = Modifier

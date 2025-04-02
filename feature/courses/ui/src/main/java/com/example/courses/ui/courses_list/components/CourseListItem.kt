@@ -33,7 +33,7 @@ fun CourseListItem(
             HeaderListItem(
                 course = course,
                 onFavoriteClick = onFavoriteClick,
-                modifier
+                modifier = Modifier
             )
             Text(
                 text = course.title,

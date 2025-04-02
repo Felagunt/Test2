@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -135,14 +136,21 @@ private fun AllCoursesScreen(
                 }
                 if (state.courseList.isNotEmpty()) {
                     LazyColumn(
-                        modifier = Modifier,
-                        verticalArrangement = Arrangement.Center
+//                        contentPadding = PaddingValues(
+//                            start = 20.dp,
+//                            end = 20.dp,
+//                            top = 15.dp + paddingValues.calculateTopPadding(),
+//                            bottom = 15.dp + paddingValues.calculateBottomPadding()
+//                        ),
+//                        modifier = Modifier
+//                            .padding(12.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         items(list) { course ->
                             CourseListItem(
                                 course = course,
-                                modifier = Modifier
-                                    .padding(top = 8.dp, bottom = 12.dp),
+//                                modifier = Modifier
+//                                    .padding(top = 8.dp, bottom = 12.dp),
                                 onFavoriteClick = {
                                     onAction(AllCoursesAction.OnFavoriteClick(it))
                                 }

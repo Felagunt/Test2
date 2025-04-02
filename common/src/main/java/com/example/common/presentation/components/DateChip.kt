@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.common.utils.toDate
 
 @Composable
 fun DateChip(
@@ -22,7 +23,7 @@ fun DateChip(
         tonalElevation = 4.dp
     ) {
         Text(
-            text = date,
+            text = "${date.toDate().dayOfMonth} ${date.toDate().month} ${date.toDate().year}",
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier
                 .padding(4.dp)
