@@ -100,7 +100,7 @@ private fun LogInScreen(
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                focusedContainerColor = MaterialTheme.colorScheme.onSurface,
+                focusedContainerColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 unfocusedContainerColor = MaterialTheme.colorScheme.onSurface,
                 focusedTextColor = MaterialTheme.colorScheme.surface,
                 unfocusedTextColor = MaterialTheme.colorScheme.surface,
@@ -133,7 +133,7 @@ private fun LogInScreen(
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                focusedContainerColor = MaterialTheme.colorScheme.onSurface,
+                focusedContainerColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 unfocusedContainerColor = MaterialTheme.colorScheme.onSurface,
                 focusedTextColor = MaterialTheme.colorScheme.surface,
                 unfocusedTextColor = MaterialTheme.colorScheme.surface,
@@ -148,7 +148,7 @@ private fun LogInScreen(
             },
             enabled = state.isEnabled,
             modifier = Modifier
-                .padding(top = 12.dp)
+                .padding(vertical = 20.dp, horizontal = 14.dp)
                 .fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.secondary
@@ -163,7 +163,7 @@ private fun LogInScreen(
 
         HorizontalDivider(
             color = MaterialTheme.colorScheme.onSurface,
-            thickness = 2.dp
+            thickness = 1.dp
         )
         
         Row(
@@ -177,7 +177,7 @@ private fun LogInScreen(
                     uriHandler.openUri("https://vk.com/")
                 },
                 modifier = Modifier
-                    .padding(12.dp)
+                    .padding(16.dp)
                     .fillMaxWidth()
                     .weight(1f),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)

@@ -43,7 +43,7 @@ fun HeaderListItem(
             course = course,
             modifier = modifier
                 .align(Alignment.TopEnd)
-                .padding(4.dp)
+                .padding(6.dp)
         )
         Row(
             modifier = Modifier

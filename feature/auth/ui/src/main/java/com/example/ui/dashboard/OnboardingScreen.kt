@@ -56,7 +56,10 @@ fun Onboarding(
             minLines = 2,
             style = MaterialTheme.typography.titleLarge
         )
-        FlowRow {
+        FlowRow(
+            modifier = Modifier,
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
             rowList.onEach { item ->
                 RowChips(item)
             }

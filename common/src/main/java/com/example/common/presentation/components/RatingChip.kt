@@ -28,7 +28,7 @@ fun RatingChip(
     ) {
         Row(
             modifier = Modifier
-                .padding(horizontal = 4.dp),
+                .padding(start = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {

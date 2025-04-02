@@ -47,7 +47,7 @@ fun CourseListItem(
             )
             Row(
                 modifier = Modifier
-                    .padding(12.dp)
+                    .padding(16.dp)
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
