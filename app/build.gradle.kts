@@ -90,4 +90,7 @@ dependencies {
     implementation(libs.bundles.coil)
 
     implementation(libs.bundles.retrofit)
+
+    implementation(libs.datastore)
+    implementation(libs.datastore.proto)
 }

@@ -3,16 +3,20 @@ package com.example.ui.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common.utils.isValidEmail
+import com.example.common.data.DataStoreManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LogInViewModel @Inject constructor(
+    private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LoginState())
@@ -25,11 +29,12 @@ class LogInViewModel @Inject constructor(
             SharingStarted.WhileSubscribed(5000L),
             _state.value
         )
-//
-//    val isLoggedIn: Flow<Boolean> = context.dataStore.data
-//        .map { preferences ->
-//            preferences[IS_LOGGED_IN_KEY] ?: false
-//        }
+
+
+
+    private val _isLoggedIn = MutableStateFlow(dataStoreManager.isLoggedIn)
+    val isLoggedIn = _isLoggedIn.asStateFlow()
+
 //
 //    // Function to get the username
 //    val username: Flow<String?> = context.dataStore.data
@@ -47,7 +52,7 @@ class LogInViewModel @Inject constructor(
 
             is LogInAction.OnLogInClick -> {
                 //signIn()
-                //saveSession()
+                saveSession()
             }
 
             is LogInAction.OnPasswordChange -> {
@@ -84,13 +89,10 @@ class LogInViewModel @Inject constructor(
         }
     }
 
-//    private fun saveSession() {
-//        viewModelScope.launch {
-//            context.dataStore.edit {
-//                it[IS_LOGGED_IN_KEY] = true
-//                it[USERNAME_KEY] = _state.value.email.toString()
-//            }
-//        }
-//    }
+    private fun saveSession() {
+        viewModelScope.launch {
+            dataStoreManager.setLoggedIn(true)
+        }
+    }
 
 }

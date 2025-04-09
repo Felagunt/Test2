@@ -1,6 +1,7 @@
 package com.example.courses.di
 
 import android.content.Context
+import com.example.common.utils.BASE_URL
 import com.example.courses.data.local.FavoriteDao
 import com.example.courses.data.mappers.CoursesListMapper
 import com.example.courses.data.network.CoursesApi
@@ -31,7 +32,7 @@ object CourseModule {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("https://mock.api/")//fake api
+            .baseUrl(BASE_URL)//fake api
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

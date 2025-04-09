@@ -3,6 +3,7 @@ package com.example.testtests.core.route
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -38,6 +39,10 @@ fun RootNavGraph() {
 
             composable<Auth.LogIn> {
                 val viewModel = hiltViewModel<com.example.ui.auth.LogInViewModel>()
+                val isLoggedIn = viewModel.isLoggedIn.collectAsStateWithLifecycle()
+                LaunchedEffect(isLoggedIn) {
+                    navController.navigate(SubGraph.DestGraph)
+                }
                 com.example.ui.auth.LogInScreenRoot(
                     viewModel = viewModel,
                     onLogInClick = {

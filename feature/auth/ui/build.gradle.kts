@@ -42,6 +42,7 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":feature:auth:data"))
 
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

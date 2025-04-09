@@ -1,6 +1,7 @@
 package com.example.testtests.di
 
 import android.content.Context
+import com.example.common.data.DataStoreManager
 import com.example.courses.data.local.FavoriteDao
 import dagger.Module
 import dagger.Provides
@@ -25,4 +26,10 @@ object AppModule{
         return dataBase.favoriteDao()
     }
 
+
+    @Provides
+    @Singleton
+    fun provideDataStoreManager(@ApplicationContext context: Context): DataStoreManager {
+        return DataStoreManager(context)
+    }
 }

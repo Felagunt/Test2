@@ -18,21 +18,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.auth.data.UserPreferences
 import com.example.auth.ui.R
 import com.example.common.presentation.components.ForgotRow
-import kotlinx.coroutines.launch
+import com.example.common.utils.OK_URL
+import com.example.common.utils.VK_URL
 
 @Composable
 fun LogInScreenRoot(
@@ -71,23 +69,23 @@ private fun LogInScreen(
     val userPassword = remember { mutableStateOf("") }
     val uriHandler = LocalUriHandler.current
     var enabled = remember { mutableStateOf(state.isEnabled) }
-    val context = LocalContext.current
-    val userPref = remember { UserPreferences(context) }
-    val isLoggedIn: Boolean by userPref.isLoggedIn.collectAsStateWithLifecycle(false)
-    val coroutineScope = rememberCoroutineScope()
+//    val context = LocalContext.current
+//    val userPref = remember { UserPreferences(context) }
+//    val isLoggedIn: Boolean by userPref.isLoggedIn.collectAsStateWithLifecycle(false)
+//    val coroutineScope = rememberCoroutineScope()
 
 
-    if (isLoggedIn) {
-        // Show user info if logged in
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(text = "Welcome,")
-            onAction(LogInAction.OnLogInClick)
-        }
-    } else {
+//    if (isLoggedIn) {
+//        // Show user info if logged in
+//        Column(
+//            modifier = Modifier.fillMaxSize(),
+//            horizontalAlignment = Alignment.CenterHorizontally,
+//            verticalArrangement = Arrangement.Center
+//        ) {
+//            Text(text = "Welcome,")
+//            onAction(LogInAction.OnLogInClick)
+//        }
+//    } else {
 
         Column(
             modifier = Modifier
@@ -172,9 +170,9 @@ private fun LogInScreen(
             Button(
                 onClick = {
                     onAction(LogInAction.OnLogInClick)
-                    coroutineScope.launch {
-                        userPref.setLoggedIn(true)
-                    }
+//                    coroutineScope.launch {
+//                        userPref.setLoggedIn(true)
+//                    }
                 },
                 enabled = state.isEnabled,
                 modifier = Modifier
@@ -204,7 +202,7 @@ private fun LogInScreen(
             ) {
                 Button(
                     onClick = {
-                        uriHandler.openUri("https://vk.com/")
+                        uriHandler.openUri(VK_URL)
                     },
                     modifier = Modifier
                         .padding(16.dp)
@@ -219,7 +217,7 @@ private fun LogInScreen(
                 }
                 Button(
                     onClick = {
-                        uriHandler.openUri("https://ok.ru/")
+                        uriHandler.openUri(OK_URL)
                     },
                     modifier = Modifier
                         .padding(12.dp)
@@ -234,5 +232,5 @@ private fun LogInScreen(
                 }
             }
         }
-    }
+    //}
 }
