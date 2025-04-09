@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 class CoursesRepositoryImpl @Inject constructor(
     private val api: CoursesApi,
-    private val dao: FavoriteDao,
     private val coursesListMapper: CoursesListMapper
 ) : CoursesRepository {
 
@@ -50,28 +49,4 @@ class CoursesRepositoryImpl @Inject constructor(
             }
         )
 
-
-    override fun getFavoriteCourses(): Flow<List<Course>> {
-        return dao.getFavoriteCourses()
-            .map { list ->
-                list.map {
-                    it.toCourse()
-                }
-            }
-    }
-
-    override fun isCourseFavorite(id: Int): Flow<Boolean> {
-        return dao.getFavoriteCourses()
-            .map { entity ->
-                entity.any{ it.id == id}
-            }
-    }
-
-    override suspend fun deleteFavoriteCourse(course: Course) {
-        dao.deleteCourse(course.toEntity())
-    }
-
-    override suspend fun insertFavoriteCourse(course: Course) {
-        dao.insertCourse(course.toEntity())
-    }
 }

@@ -6,7 +6,9 @@ import com.example.courses.data.mappers.CoursesListMapper
 import com.example.courses.data.network.CoursesApi
 import com.example.courses.data.network.LocalJsonInterceptor
 import com.example.courses.data.repository.CoursesRepositoryImpl
+import com.example.courses.data.repository.FavoriteRepositoryImpl
 import com.example.courses.domain.repository.CoursesRepository
+import com.example.courses.domain.repository.FavoriteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,8 +47,17 @@ object CourseModule {
     ): CoursesRepository {
         return CoursesRepositoryImpl(
             api = api,
-            dao = dao,
             coursesListMapper = mapper
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteRepository(
+        dao: FavoriteDao,
+    ): FavoriteRepository {
+        return FavoriteRepositoryImpl(
+            dao = dao
         )
     }
 }
