@@ -1,5 +1,6 @@
 package com.example.courses.domain.use_cases
 
+import android.util.Log
 import com.example.courses.domain.models.Course
 import com.example.courses.domain.repository.CoursesRepository
 import kotlinx.coroutines.Dispatchers
@@ -13,5 +14,6 @@ class DeleteFromFavoriteUseCase @Inject constructor(
 
     operator fun invoke(course: Course) = flow<Unit> {
         repository.deleteFavoriteCourse(course)
+        println("delete " +"$course")
     }.flowOn(Dispatchers.IO)
 }

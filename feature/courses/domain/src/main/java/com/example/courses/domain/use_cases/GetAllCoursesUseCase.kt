@@ -1,5 +1,6 @@
 package com.example.courses.domain.use_cases
 
+import android.util.Log
 import com.example.common.utils.Resource
 import com.example.courses.domain.models.Course
 import com.example.courses.domain.repository.CoursesRepository
@@ -14,15 +15,20 @@ class GetAllCoursesUseCase @Inject constructor(
     private val repository: CoursesRepository
 ) {
 
-    operator fun invoke(): Flow<Resource<List<Course>>> = flow {
-        emit(Resource.Loading())
-        val response = repository.getAllCourses()
-        if (response.isSuccess) {
-            emit(Resource.Success(data = response.getOrThrow()))
-        } else {
-            emit(Resource.Error(message = response.exceptionOrNull()?.localizedMessage.toString()))
-        }
-    }.catch  {
-        emit(Resource.Error(it.message.toString()))
-    }.flowOn(Dispatchers.IO)
+    suspend fun invoke() = repository.getAllCourses().also {
+        println("getall "+ "$it")
+    }
+
+    //    operator fun invoke(): Flow<Resource<List<Course>>> = flow {
+//        emit(Resource.Loading())
+//        val response = repository.getAllCourses()
+//        if (response.isSuccess) {
+//            emit(Resource.Success(data = response.getOrThrow()))
+//        } else {
+//            emit(Resource.Error(message = response.exceptionOrNull()?.localizedMessage.toString()))
+//        }
+//    }.catch  {
+//        emit(Resource.Error(it.message.toString()))
+//    }.flowOn(Dispatchers.IO)
 }
+

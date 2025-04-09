@@ -74,6 +74,7 @@ private fun AllCoursesScreen(
                     keyboardController?.hide()
                 },
                 modifier = Modifier
+                    .padding(top = 4.dp)
             )
         }
     ) { paddingValues ->

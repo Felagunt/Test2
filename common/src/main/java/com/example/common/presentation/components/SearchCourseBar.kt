@@ -41,50 +41,50 @@ fun SearchCourseBar(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
 
-        Surface(
-            shape = RoundedCornerShape(32.dp),
-            modifier = Modifier,
-            color = MaterialTheme.colorScheme.surface,
-            tonalElevation = 4.dp
-        ) {
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = onSearchQueryChange,
-                shape = RoundedCornerShape(100),
-                colors = OutlinedTextFieldDefaults.colors(
-                    //cursorColor = DarkBlue,
-                    //focusedBorderColor = SandYellow
-                ),
-                placeholder = {
-                    Text(
-                        text = "Search courses..."
-                    )
-                },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.66f)
-                    )
-                },
-                singleLine = true,
-                keyboardActions = KeyboardActions(
-                    onSearch = {
-                        onImeSearch()
-                    }
-                ),
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Search
-                ),
-                modifier = modifier
-                    .background(
-                        shape = RoundedCornerShape(100),
-                        color = MaterialTheme.colorScheme.background
-                    )
-                    .minimumInteractiveComponentSize()
-            )
-        }
+        OutlinedTextField(
+            value = searchQuery,
+            onValueChange = onSearchQueryChange,
+            shape = RoundedCornerShape(100),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = MaterialTheme.colorScheme.surface,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onSurface
+            ),
+            placeholder = {
+                Text(
+                    text = "Search courses..."
+                )
+            },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.66f)
+                )
+            },
+            singleLine = true,
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    onImeSearch()
+                }
+            ),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Search
+            ),
+            modifier = modifier
+                .background(
+                    shape = RoundedCornerShape(100),
+                    color = MaterialTheme.colorScheme.background
+                )
+                .minimumInteractiveComponentSize()
+        )
+//        Surface(
+//            shape = RoundedCornerShape(32.dp),
+//            modifier = Modifier,
+//            color = MaterialTheme.colorScheme.surface,
+//            tonalElevation = 4.dp
+//        ) {
+//        }
 
         Surface(
             shape = RoundedCornerShape(32.dp),

@@ -40,6 +40,7 @@ android {
 dependencies {
 
     implementation(project(":common"))
+    implementation(project(":feature:auth:data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -72,4 +73,7 @@ dependencies {
     //implementation(libs.kotlinx.serialization.json)
     //implementation(libs.sqlite.bundled)
 
+
+    implementation(libs.datastore)
+    implementation(libs.datastore.proto)
 }

@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -44,25 +45,40 @@ class FavoriteViewModel @Inject constructor(
                     } else {
                         insertFavoriteCourseUseCase.invoke(action.course)
                     }
+                    _state.update { currentState ->
+                        val updatedCourseList = currentState.favoriteList?.map {
+                            if (it.id == action.course.id) {
+                                it.copy(hasLike = !action.course.hasLike)
+                            } else {
+                                it
+                            }
+                        }
+                        currentState.copy(favoriteList = updatedCourseList)
+                    }
                 }
             }
             is FavoriteAction.OnCourseClick -> {
 
             }
+            else -> Unit
         }
     }
 
+    private fun updateCourseListFavorite(course: Course) {
+        //val isCurrentlyFavorite = repository.isCourseFavorite(course.id).first()
 
-    private fun getFavoriteCourses() = viewModelScope.launch {
+    }
+
+    private fun getFavoriteCourses() {
         getFavoriteCoursesUseCase
             .invoke()
-            .collectLatest { list ->
+            .onEach { list ->
                 _state.update {
                     it.copy(
                         favoriteList = list
                     )
                 }
-            }
+            }.launchIn(viewModelScope)
     }
 
     private fun deleteFavoriteCourse(course: Course) = deleteFromFavoriteUseCase

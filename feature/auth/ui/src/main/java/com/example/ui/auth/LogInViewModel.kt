@@ -4,17 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common.utils.isValidEmail
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LogInViewModel @Inject constructor() : ViewModel() {
+class LogInViewModel @Inject constructor(
+) : ViewModel() {
 
     private val _state = MutableStateFlow(LoginState())
     val state = _state
@@ -26,8 +25,18 @@ class LogInViewModel @Inject constructor() : ViewModel() {
             SharingStarted.WhileSubscribed(5000L),
             _state.value
         )
-
-    private var observeSignIn: Job? = null
+//
+//    val isLoggedIn: Flow<Boolean> = context.dataStore.data
+//        .map { preferences ->
+//            preferences[IS_LOGGED_IN_KEY] ?: false
+//        }
+//
+//    // Function to get the username
+//    val username: Flow<String?> = context.dataStore.data
+//        .map { preferences ->
+//            preferences[USERNAME_KEY]
+//        }
+//    private var observeSignIn: Job? = null
 
     fun onAction(action: LogInAction) {
         when (action) {
@@ -38,6 +47,7 @@ class LogInViewModel @Inject constructor() : ViewModel() {
 
             is LogInAction.OnLogInClick -> {
                 //signIn()
+                //saveSession()
             }
 
             is LogInAction.OnPasswordChange -> {
@@ -70,7 +80,17 @@ class LogInViewModel @Inject constructor() : ViewModel() {
                     isEnabled = true
                 )
             }
+
         }
     }
+
+//    private fun saveSession() {
+//        viewModelScope.launch {
+//            context.dataStore.edit {
+//                it[IS_LOGGED_IN_KEY] = true
+//                it[USERNAME_KEY] = _state.value.email.toString()
+//            }
+//        }
+//    }
 
 }

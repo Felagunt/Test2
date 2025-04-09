@@ -2,6 +2,7 @@ package com.example.courses.di
 
 import android.content.Context
 import com.example.courses.data.local.FavoriteDao
+import com.example.courses.data.mappers.CoursesListMapper
 import com.example.courses.data.network.CoursesApi
 import com.example.courses.data.network.LocalJsonInterceptor
 import com.example.courses.data.repository.CoursesRepositoryImpl
@@ -37,10 +38,15 @@ object CourseModule {
 
     @Provides
     @Singleton
-    fun provideCoursesRepository(api: CoursesApi, dao: FavoriteDao): CoursesRepository {
+    fun provideCoursesRepository(
+        api: CoursesApi,
+        dao: FavoriteDao,
+        mapper: CoursesListMapper
+    ): CoursesRepository {
         return CoursesRepositoryImpl(
             api = api,
-            dao = dao
-            )
+            dao = dao,
+            coursesListMapper = mapper
+        )
     }
 }
