@@ -139,21 +139,11 @@ private fun AllCoursesScreen(
                 }
                 if (state.courseList.isNotEmpty()) {
                     LazyColumn(
-//                        contentPadding = PaddingValues(
-//                            start = 20.dp,
-//                            end = 20.dp,
-//                            top = 15.dp + paddingValues.calculateTopPadding(),
-//                            bottom = 15.dp + paddingValues.calculateBottomPadding()
-//                        ),
-//                        modifier = Modifier
-//                            .padding(12.dp),
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         items(list) { course ->
                             CourseListItem(
                                 course = course,
-//                                modifier = Modifier
-//                                    .padding(top = 8.dp, bottom = 12.dp),
                                 onFavoriteClick = {
                                     onAction(AllCoursesAction.OnFavoriteClick(it))
                                 }

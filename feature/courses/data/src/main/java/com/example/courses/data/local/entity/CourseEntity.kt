@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class CourseEntity(
     @PrimaryKey(autoGenerate = false)
-    val hasLike: Boolean,
     val id: Int,
+    val hasLike: Boolean,
     val price: String,
     val publishDate: String,
     val rate: String,
