@@ -118,59 +118,6 @@ class AllCoursesViewModel @Inject constructor(
             )
         }
 
-//    private fun syncCourses() {
-//        viewModelScope.launch {
-//            _state.value.courseList?.onEach { course ->
-//                if (course.hasLike) {
-//                    val isCurrentlyFavorite = isCourseFavoriteUseCase.invoke(course.id).first()
-//                    if (isCurrentlyFavorite) {
-//                        insertFavoriteCourseUseCase.invoke(course)
-//                    } else {
-//                        deleteFromFavoriteUseCase.invoke(course)
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-//    private fun getCourses() {
-//        getAllCoursesUseCase
-//            .invoke()
-//            .onEach { result ->
-//                when (result) {
-//                    is Resource.Error -> {
-//                        _state.update {
-//                            it.copy(
-//                                courseList = emptyList(),
-//                                errorMsg = result.message,
-//                                isLoading = false
-//                            )
-//                        }
-//                    }
-//
-//                    is Resource.Loading -> {
-//                        _state.update {
-//                            it.copy(
-//                                isLoading = true,
-//                                errorMsg = null,
-//                                courseList = emptyList()
-//                            )
-//                        }
-//                    }
-//
-//                    is Resource.Success -> {
-//                        courseList = result.data?.toMutableList()!!
-//                        _state.update {
-//                            it.copy(
-//                                isLoading = false,
-//                                errorMsg = null,
-//                                courseList = result.data
-//                            )
-//                        }
-//                    }
-//                }
-//            }.launchIn(viewModelScope)
-//    }
 
     private fun loadCourses() {
         viewModelScope.launch {
@@ -202,26 +149,3 @@ class AllCoursesViewModel @Inject constructor(
         }
     }
 }
-/*
-viewModelScope.launch {
-        val isCurrentlyFavorite = repository.isCourseFavorite(course.id).first()
-
-        if (isCurrentlyFavorite) {
-            repository.deleteFavoriteCourse(course)
-        } else {
-            repository.insertFavoriteCourse(course)
-        }
-
-
-        _state.update { currentState ->
-            val updatedCourseList = currentState.courseList?.map {
-                if (it.id == course.id) {
-                    it.copy(hasLike = !isCurrentlyFavorite)
-                } else {
-                    it
-                }
-            }
-            currentState.copy(courseList = updatedCourseList)
-        }
-    }
- */

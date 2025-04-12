@@ -15,9 +15,7 @@ class GetAllCoursesUseCase @Inject constructor(
     private val repository: CoursesRepository
 ) {
 
-    suspend fun invoke() = repository.getAllCourses().also {
-        println("getall "+ "$it")
-    }
+    suspend fun invoke() = repository.getAllCourses()
 
     //    operator fun invoke(): Flow<Resource<List<Course>>> = flow {
 //        emit(Resource.Loading())

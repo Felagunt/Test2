@@ -1,22 +1,16 @@
 package com.example.courses.data.repository
 
-import com.example.common.utils.Either
-import com.example.common.utils.Failure
 import com.example.courses.data.local.FavoriteDao
-import com.example.courses.data.mappers.CoursesListMapper
 import com.example.courses.data.mappers.toCourse
 import com.example.courses.data.mappers.toEntity
-import com.example.courses.data.network.CoursesApi
-import com.example.courses.data.network.handler.safeApiCall
 import com.example.courses.domain.models.Course
-import com.example.courses.domain.repository.CoursesRepository
 import com.example.courses.domain.repository.FavoriteRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class FavoriteRepositoryImpl @Inject constructor(
-    private val dao: FavoriteDao,
+    private val dao: FavoriteDao
 ) : FavoriteRepository {
 
     override fun getFavoriteCourses(): Flow<List<Course>> {

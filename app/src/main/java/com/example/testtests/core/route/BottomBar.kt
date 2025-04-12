@@ -21,6 +21,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import com.example.courses.ui.course_details.CourseDetailsScreenRoot
+import com.example.courses.ui.course_details.CourseDetailsViewModel
 import com.example.ui.auth.LogInScreenRoot
 import com.example.ui.auth.LogInViewModel
 import com.example.courses.ui.courses_list.AllCoursesScreenRoot
@@ -104,6 +107,15 @@ fun BottomBar() {
                 }
 
                 composable<SubGraph.CourseDetails> {
+                    val args = it.toRoute<SubGraph.CourseDetails>()
+                    val viewModel = hiltViewModel<CourseDetailsViewModel>()
+                    CourseDetailsScreenRoot(
+                        id = args.id,
+                        viewModel = viewModel,
+                        onBackClick = {
+                            navController.navigateUp()
+                        }
+                    )
 
                 }
                 composable<Dest.Favorite> {
