@@ -131,9 +131,7 @@ class AllCoursesViewModel @Inject constructor(
                 },
                 { list ->
                     courseList = list.toMutableList()
-
                     val favoriteIds = getFavoriteCoursesUseCase.invoke().first().map { it.id }
-
                     val updatedList = list.map { course ->
                         course.copy(
                             hasLike = favoriteIds.contains(course.id)

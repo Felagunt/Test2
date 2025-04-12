@@ -1,7 +1,7 @@
 package com.example.courses.domain.models
 
 data class Course(
-    val hasLike: Boolean,
+    var hasLike: Boolean,
     val id: Int,
     val price: String,
     val publishDate: String,

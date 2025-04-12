@@ -34,7 +34,7 @@ class CourseDetailsViewModel @Inject constructor(
     private val _state = MutableStateFlow(CourseDetailsState())
     val state = _state
         .onStart {
-
+            observeFavoriteStatus()
         }
         .stateIn(
             viewModelScope,
@@ -95,9 +95,11 @@ class CourseDetailsViewModel @Inject constructor(
     private fun observeFavoriteStatus() {
         isCourseFavoriteUseCase.invoke(_state.value.course!!.id)
             .onEach { isFavorite ->
-                _state.update {
-                    it.copy(
-                        course = isFavorite
+                val curCourse = _state.value.course
+                curCourse?.hasLike = isFavorite
+                _state.update {curState ->
+                    curState.copy(
+                        course = curCourse//TODO
                     )
                 }
             }
