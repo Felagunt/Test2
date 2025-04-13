@@ -1,5 +1,7 @@
 package com.example.testtests.core.route
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
@@ -32,6 +34,7 @@ import com.example.ui.dashboard.Onboarding
 import com.example.courses.ui.favorite.FavoriteScreenRoot
 import com.example.courses.ui.favorite.FavoriteViewModel
 import com.example.courses.ui.profile.ProfileScreen
+import com.example.courses.ui.profile.ProfileViewModel
 
 @Composable
 fun BottomBar() {
@@ -94,7 +97,20 @@ fun BottomBar() {
             navigation<SubGraph.DestGraph>(
                 startDestination = Dest.Home,
             ) {
-                composable<Dest.Home> {
+                composable<Dest.Home>(
+                    exitTransition = {
+                        return@composable slideOutOfContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Start,
+                            tween(700)
+                        )
+                    },
+                    popEnterTransition = {
+                        return@composable slideIntoContainer(
+                            AnimatedContentTransitionScope.SlideDirection.End,
+                            tween(700)
+                        )
+                    }
+                ) {
                     val viewModel = hiltViewModel<AllCoursesViewModel>()
                     AllCoursesScreenRoot(
                         viewModel = viewModel,
@@ -106,7 +122,20 @@ fun BottomBar() {
                     )
                 }
 
-                composable<SubGraph.CourseDetails> {
+                composable<SubGraph.CourseDetails>(
+                    exitTransition = {
+                        return@composable slideOutOfContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Start,
+                            tween(700)
+                        )
+                    },
+                    popEnterTransition = {
+                        return@composable slideIntoContainer(
+                            AnimatedContentTransitionScope.SlideDirection.End,
+                            tween(700)
+                        )
+                    }
+                ) {
                     val args = it.toRoute<SubGraph.CourseDetails>()
                     val viewModel = hiltViewModel<CourseDetailsViewModel>()
                     CourseDetailsScreenRoot(
@@ -118,7 +147,20 @@ fun BottomBar() {
                     )
 
                 }
-                composable<Dest.Favorite> {
+                composable<Dest.Favorite>(
+                    exitTransition = {
+                        return@composable slideOutOfContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Start,
+                            tween(700)
+                        )
+                    },
+                    popEnterTransition = {
+                        return@composable slideIntoContainer(
+                            AnimatedContentTransitionScope.SlideDirection.End,
+                            tween(700)
+                        )
+                    }
+                ) {
                     val viewModel = hiltViewModel<FavoriteViewModel>()
                     FavoriteScreenRoot(
                         viewModel = viewModel,
@@ -130,8 +172,32 @@ fun BottomBar() {
                     )
                 }
 
-                composable<Dest.Profile> {
-                    ProfileScreen()
+                composable<Dest.Profile>(
+                    exitTransition = {
+                        return@composable slideOutOfContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Start,
+                            tween(700)
+                        )
+                    },
+                    popEnterTransition = {
+                        return@composable slideIntoContainer(
+                            AnimatedContentTransitionScope.SlideDirection.End,
+                            tween(700)
+                        )
+                    }
+                ) {
+                    val viewModel = hiltViewModel<ProfileViewModel>()
+                    ProfileScreen(
+                        viewModel = viewModel,
+                        onLogOut = {
+                            navController.navigate(Auth.LogIn) {
+                                popUpTo<Auth.LogIn> {
+                                    saveState = false
+                                    inclusive = true
+                                }
+                            }
+                        }
+                    )
                 }
             }
         }

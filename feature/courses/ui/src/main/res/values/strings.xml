@@ -2,4 +2,5 @@
 <resources>
     <string name="on_date_of_update">По дате добавления</string>
     <string name="about_btn"><![CDATA[Подробнее ->]]></string>
+    <string name="log_out_btn">Выйти</string>
 </resources>

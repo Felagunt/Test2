@@ -38,12 +38,10 @@ fun LogInScreenRoot(
     onLogInClick: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    //val isLoggedIn by viewModel.isLoggedIn.collectAsStateWithLifecycle(false)
 
 
     LogInScreen(
         state = state,
-        //isLoggedIn = isLoggedIn,
         onAction = { action ->
             when (action) {
                 is LogInAction.OnLogInClick -> {
@@ -69,27 +67,11 @@ private fun LogInScreen(
     val userPassword = remember { mutableStateOf("") }
     val uriHandler = LocalUriHandler.current
     var enabled = remember { mutableStateOf(state.isEnabled) }
-//    val context = LocalContext.current
-//    val userPref = remember { UserPreferences(context) }
-//    val isLoggedIn: Boolean by userPref.isLoggedIn.collectAsStateWithLifecycle(false)
-//    val coroutineScope = rememberCoroutineScope()
 
 
-//    if (isLoggedIn) {
-//        // Show user info if logged in
-//        Column(
-//            modifier = Modifier.fillMaxSize(),
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            verticalArrangement = Arrangement.Center
-//        ) {
-//            Text(text = "Welcome,")
-//            onAction(LogInAction.OnLogInClick)
-//        }
-//    } else {
 
         Column(
             modifier = Modifier
-//            .padding(top = 20.dp)
                 .padding(16.dp)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.Start,
