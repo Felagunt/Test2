@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.common.presentation.components.ErrorScreen
+import com.example.common.presentation.components.LoadingScreen
 import com.example.courses.ui.courses_list.components.CourseListItem
 import com.example.courses.domain.models.Course
 
@@ -62,8 +64,18 @@ private fun FavoriteScreen(
             ) {
 
                 if (state.isLoading) {
-                    CircularProgressIndicator()
+                    LoadingScreen(
+                        modifier = Modifier,
+                        paddingValues = paddingValues
+                    )
                 }
+//                if (state.error?.isNotEmpty() == true) {
+//                    ErrorScreen(
+//                        modifier = Modifier,
+//                        error = state.error,
+//                        paddingValues = paddingValues
+//                    )
+//                }
                 if (state.favoriteList.isNotEmpty()) {
                     LazyColumn(
                         modifier = Modifier

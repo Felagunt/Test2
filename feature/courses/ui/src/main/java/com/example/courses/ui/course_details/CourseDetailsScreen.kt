@@ -1,17 +1,18 @@
 package com.example.courses.ui.course_details
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,12 +24,15 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.courses.domain.models.Course
+import coil3.compose.AsyncImage
+import com.example.common.presentation.components.ErrorScreen
+import com.example.common.presentation.components.LoadingScreen
 
 @Composable
 fun CourseDetailsScreenRoot(
@@ -107,36 +111,34 @@ private fun CourseDetailsScreen(
         }
     ) { paddingValues ->
         if (state.isLoading) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
+            LoadingScreen(
+                modifier = Modifier,
+                paddingValues = paddingValues
+            )
         }
-        if (state.error?.isNotEmpty() == true) {
-            Box(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = state.error,
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.headlineMedium
-                )
-
-            }
+        if (state.errorMsg?.isNotEmpty() == true) {
+            ErrorScreen(
+                modifier = Modifier,
+                error = state.errorMsg,
+                paddingValues = paddingValues
+            )
         }
         state.course?.let { course ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
+                    .verticalScroll(rememberScrollState()) // Добавляем скролл, если контент не помещается
             ) {
+                AsyncImage(
+                    model = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.IpJgQO7w8-XI4RcZ0iElWQHaE7%26pid%3DApi&f=1&ipt=d4497a5c287cd8d224fea126b015c09f7a332d6112853a9fd2e992c6659c0aa0&ipo=images",
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .height(114.dp)
+                        .fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = course.title,
                     style = MaterialTheme.typography.headlineMedium
@@ -144,6 +146,26 @@ private fun CourseDetailsScreen(
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = course.text,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Дата начала: ${course.startDate}",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Цена: ${course.price}",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Рейтинг: ${course.rate}",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Дата публикации: ${course.publishDate}",
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Spacer(modifier = Modifier.height(16.dp))

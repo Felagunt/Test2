@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common.utils.fold
 import com.example.common.utils.getErrorMessage
-import com.example.courses.domain.models.Course
 import com.example.courses.domain.use_cases.DeleteFromFavoriteUseCase
 import com.example.courses.domain.use_cases.GetAllCoursesUseCase
 import com.example.courses.domain.use_cases.GetFavoriteCoursesUseCase
@@ -13,7 +12,6 @@ import com.example.courses.domain.use_cases.IsCourseFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -72,7 +70,7 @@ class CourseDetailsViewModel @Inject constructor(
                 { failure ->
                     _state.update {
                         it.copy(
-                            error = failure.getErrorMessage().toString()
+                            errorMsg = failure.getErrorMessage().toString()
                         )
                     }
                 },

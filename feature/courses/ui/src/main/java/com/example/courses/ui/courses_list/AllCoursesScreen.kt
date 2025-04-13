@@ -29,6 +29,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.common.presentation.components.ErrorScreen
+import com.example.common.presentation.components.LoadingScreen
 import com.example.courses.ui.courses_list.components.CourseListItem
 import com.example.common.presentation.components.SearchCourseBar
 import com.example.courses.domain.models.Course
@@ -115,27 +117,17 @@ private fun AllCoursesScreen(
                     }
                 }
                 if (state.isLoading) {
-                    Box(
-                        modifier = Modifier
-                            .padding(paddingValues)
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
-                    }
+                    LoadingScreen(
+                        modifier = Modifier,
+                        paddingValues = paddingValues
+                    )
                 }
                 if (state.errorMsg?.isNotEmpty() == true) {
-                    Box(
-                        modifier = Modifier
-                            .padding(paddingValues)
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = state.errorMsg,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
+                    ErrorScreen(
+                        modifier = Modifier,
+                        error = state.errorMsg,
+                        paddingValues = paddingValues
+                    )
                 }
                 if (state.courseList.isNotEmpty()) {
                     LazyColumn(
