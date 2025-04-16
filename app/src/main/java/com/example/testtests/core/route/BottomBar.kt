@@ -191,7 +191,7 @@ fun BottomBar() {
                         viewModel = viewModel,
                         onLogOut = {
                             navController.navigate(Auth.LogIn) {
-                                popUpTo<Auth.LogIn> {
+                                popUpTo<Auth.LogIn> {//TODO
                                     saveState = false
                                     inclusive = true
                                 }
