@@ -24,8 +24,8 @@ fun RatingChip(
 ) {
     Surface(
         shape = RoundedCornerShape(12.dp),
-        modifier = modifier,
-//            .height(22.dp)
+        modifier = modifier
+            .height(32.dp),
 //            .width(46.dp),
         color = MaterialTheme.colorScheme.surface,
         tonalElevation = 4.dp

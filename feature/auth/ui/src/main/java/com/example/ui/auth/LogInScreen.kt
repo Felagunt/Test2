@@ -29,6 +29,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.auth.ui.R
 import com.example.common.presentation.components.ForgotRow
+import com.example.common.presentation.components.LabeledText
+import com.example.common.presentation.components.LabeledTextField
 import com.example.common.utils.OK_URL
 import com.example.common.utils.VK_URL
 
@@ -58,7 +60,6 @@ fun LogInScreenRoot(
 @Composable
 private fun LogInScreen(
     state: LoginState,
-    //isLoggedIn: Boolean,
     onAction: (LogInAction) -> Unit,
 ) {
 
@@ -77,77 +78,35 @@ private fun LogInScreen(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
+
+
+            LabeledText(
                 text = stringResource(R.string.sign_in),
                 style = MaterialTheme.typography.displayMedium,
-                modifier = Modifier
-                    .padding(bottom = 20.dp)
-            )
-            Text(
-                text = "Email",
-                style = MaterialTheme.typography.bodyLarge,
-//            modifier = Modifier
-//                .padding(horizontal = 12.dp)
+                modifier = Modifier.padding(bottom = 20.dp)
             )
 
-            TextField(
+            LabeledTextField(
+                label = stringResource(R.string.email_txt),
                 value = userEmail.value,
                 onValueChange = {
                     userEmail.value = it
                     onAction(LogInAction.OnEmailChange(it))
                 },
-                placeholder = {
-                    Text(
-                        text = "example@gmail.com",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.surface
-                    )
-                },
-                shape = RoundedCornerShape(32.dp),
-                colors = TextFieldDefaults.colors(
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    focusedContainerColor = MaterialTheme.colorScheme.outlineVariant,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.outline,
-                    focusedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    unfocusedTextColor = MaterialTheme.colorScheme.surface,
-                )
+                placeholder = stringResource(R.string.example_gmail_com),
+                modifier = Modifier.padding(16.dp)
             )
 
-
-            Text(
-                text = stringResource(R.string.password_txt),
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier
-                    .padding(top = 16.dp)
-            )
-
-            TextField(
+            LabeledTextField(
+                label = stringResource(R.string.password_txt),
                 value = userPassword.value,
                 onValueChange = {
                     userPassword.value = it
                     onAction(LogInAction.OnPasswordChange(it))
                 },
-                placeholder = {
-                    Text(
-                        text = stringResource(R.string.put_password),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.surface
-                    )
-                },
-                shape = RoundedCornerShape(32.dp),
-
-                colors = TextFieldDefaults.colors(
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    focusedContainerColor = MaterialTheme.colorScheme.outlineVariant,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.outline,
-                    focusedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    unfocusedTextColor = MaterialTheme.colorScheme.surface,
-                )
+                placeholder = stringResource(R.string.put_password),
+                modifier = Modifier.padding(20.dp)
             )
-
-
 
             Button(
                 onClick = {
@@ -216,3 +175,73 @@ private fun LogInScreen(
         }
     //}
 }
+
+//            Text(
+//                text = stringResource(R.string.sign_in),
+//                style = MaterialTheme.typography.displayMedium,
+//                modifier = Modifier
+//                    .padding(bottom = 20.dp)
+//            )
+//            Text(
+//                text = "Email",
+//                style = MaterialTheme.typography.bodyLarge,
+////            modifier = Modifier
+////                .padding(horizontal = 12.dp)
+//            )
+//
+//            TextField(
+//                value = userEmail.value,
+//                onValueChange = {
+//                    userEmail.value = it
+//                    onAction(LogInAction.OnEmailChange(it))
+//                },
+//                placeholder = {
+//                    Text(
+//                        text = "example@gmail.com",
+//                        style = MaterialTheme.typography.bodyMedium,
+//                        color = MaterialTheme.colorScheme.surface
+//                    )
+//                },
+//                shape = RoundedCornerShape(32.dp),
+//                colors = TextFieldDefaults.colors(
+//                    focusedIndicatorColor = Color.Transparent,
+//                    unfocusedIndicatorColor = Color.Transparent,
+//                    focusedContainerColor = MaterialTheme.colorScheme.outlineVariant,
+//                    unfocusedContainerColor = MaterialTheme.colorScheme.outline,
+//                    focusedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+//                    unfocusedTextColor = MaterialTheme.colorScheme.surface,
+//                )
+//            )
+//
+//
+//            Text(
+//                text = stringResource(R.string.password_txt),
+//                style = MaterialTheme.typography.bodyLarge,
+//                modifier = Modifier
+//                    .padding(top = 16.dp)
+//            )
+//
+//            TextField(
+//                value = userPassword.value,
+//                onValueChange = {
+//                    userPassword.value = it
+//                    onAction(LogInAction.OnPasswordChange(it))
+//                },
+//                placeholder = {
+//                    Text(
+//                        text = stringResource(R.string.put_password),
+//                        style = MaterialTheme.typography.bodyMedium,
+//                        color = MaterialTheme.colorScheme.surface
+//                    )
+//                },
+//                shape = RoundedCornerShape(32.dp),
+//
+//                colors = TextFieldDefaults.colors(
+//                    focusedIndicatorColor = Color.Transparent,
+//                    unfocusedIndicatorColor = Color.Transparent,
+//                    focusedContainerColor = MaterialTheme.colorScheme.outlineVariant,
+//                    unfocusedContainerColor = MaterialTheme.colorScheme.outline,
+//                    focusedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+//                    unfocusedTextColor = MaterialTheme.colorScheme.surface,
+//                )
+//            )

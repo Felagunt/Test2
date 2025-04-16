@@ -20,9 +20,13 @@ sealed interface SubGraph {
     @Serializable
     data object Auth: SubGraph
 
+
 }
 
 sealed interface Auth {
+
+    @Serializable
+    data object AuthCheck: Auth
 
     @Serializable
     data object Onboarding : Auth

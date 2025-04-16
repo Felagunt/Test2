@@ -5,4 +5,6 @@
     <string name="password_txt">Пароль</string>
     <string name="sign_in">Вход</string>
     <string name="tittle_onbording">Тысячи курсов\n в одном месте</string>
+    <string name="example_gmail_com">example@gmail.com</string>
+    <string name="email_txt">Email</string>
 </resources>

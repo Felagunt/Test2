@@ -20,7 +20,7 @@ fun DateChip(
 
     Surface(
         shape = RoundedCornerShape(12.dp),
-        modifier = modifier,
+        modifier = modifier.height(32.dp),
         color = MaterialTheme.colorScheme.surface,
         tonalElevation = 4.dp
     ) {
