@@ -7,6 +7,7 @@ import com.example.common.data.DataStoreManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
@@ -31,17 +32,25 @@ class LogInViewModel @Inject constructor(
         )
 
 
-
-    private val _isLoggedIn = MutableStateFlow(dataStoreManager.isLoggedIn)
-    val isLoggedIn = _isLoggedIn.asStateFlow()
-
+//    private val _isLoggedIn = MutableStateFlow(false)
 //
-//    // Function to get the username
-//    val username: Flow<String?> = context.dataStore.data
-//        .map { preferences ->
-//            preferences[USERNAME_KEY]
+//    init {
+//        viewModelScope.launch {
+//            dataStoreManager.isLoggedIn.collect { loggedIn ->
+//                _isLoggedIn.value = loggedIn
+//            }
 //        }
-//    private var observeSignIn: Job? = null
+//    }
+//
+//    val isLoggedIn: StateFlow<Boolean> = _isLoggedIn.asStateFlow()
+
+    val isLoggedIn: StateFlow<Boolean> = dataStoreManager.isLoggedIn
+        .stateIn(
+            viewModelScope,
+            SharingStarted.Eagerly, // Запускаем flow сразу
+            initialValue = false
+        )
+
 
     fun onAction(action: LogInAction) {
         when (action) {

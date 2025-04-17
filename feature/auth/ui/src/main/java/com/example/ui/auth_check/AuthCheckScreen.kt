@@ -11,23 +11,21 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui.auth.LogInViewModel
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.last
 
 @Composable
 fun AuthCheckScreen(
+    viewModel: LogInViewModel = hiltViewModel(),
     onLoggedIn: () -> Unit,
     onNotLoggedIn: () -> Unit
 ) {
 
-    val viewModel = hiltViewModel<LogInViewModel>()
     val isLoggedIn by viewModel.isLoggedIn.collectAsStateWithLifecycle()
 
     LaunchedEffect(isLoggedIn) {
-        if(isLoggedIn.last()) {//TODO
-            onLoggedIn()
-        } else {
+        if(isLoggedIn) {//TODO
             onNotLoggedIn()
+        } else {
+            onLoggedIn()
         }
     }
 

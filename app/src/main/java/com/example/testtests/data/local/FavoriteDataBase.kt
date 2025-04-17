@@ -9,7 +9,7 @@ import com.example.courses.data.local.entity.CourseEntity
 
 
 @Database(
-    version = 1,
+    version = 2,
     entities = [CourseEntity::class],
     exportSchema = false
 )
@@ -20,6 +20,8 @@ abstract class FavoriteDataBase: RoomDatabase() {
     companion object {
         fun getInstance(context: Context) = Room
             .databaseBuilder(context, FavoriteDataBase::class.java,"favorite.db")
+            //.addMigrations(MIGRATION_1_2)
+            .fallbackToDestructiveMigration(true)
             .build()
     }
 }

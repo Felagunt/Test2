@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,14 +41,21 @@ fun LogInScreenRoot(
     onLogInClick: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val isLoggedIn by viewModel.isLoggedIn.collectAsStateWithLifecycle()
 
+    LaunchedEffect(isLoggedIn) {
+        if(isLoggedIn) {
+            onLogInClick()
+        }
+    }
 
     LogInScreen(
         state = state,
         onAction = { action ->
             when (action) {
                 is LogInAction.OnLogInClick -> {
-                    onLogInClick()
+                    //onLogInClick()
+                    viewModel.onAction(action)
                 }
 
                 else ->
