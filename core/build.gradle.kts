@@ -1,14 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-
 }
 
 android {
-    namespace = "com.example.courses.domain"
+    namespace = "com.example.core"
     compileSdk = 35
 
     defaultConfig {
@@ -38,9 +36,6 @@ android {
 
 dependencies {
 
-    implementation(project(":common"))
-    implementation(project(":core"))
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -48,6 +43,19 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+
+
+    implementation(libs.bundles.retrofit)
+
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+
+
+    implementation(libs.bundles.retrofit)
 }

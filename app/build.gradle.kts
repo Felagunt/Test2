@@ -44,6 +44,7 @@ android {
 
 dependencies {
     implementation(project(":common"))
+    implementation(project(":core"))
     implementation(project(":feature:courses:data"))
     implementation(project(":feature:courses:domain"))
     implementation(project(":feature:courses:ui"))
