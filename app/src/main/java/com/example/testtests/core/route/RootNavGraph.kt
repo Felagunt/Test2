@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,14 +17,9 @@ import com.example.ui.auth_check.AuthCheckScreen
 import kotlinx.coroutines.delay
 
 @Composable
-fun RootNavGraph() {
-//    private companion object {
-//        const val ANIMATION_DURATION = 700
-//    }
-    AppTheme {
+fun RootNavGraph(appState: AppState, navController: NavHostController) {
 
-
-        val navController = rememberNavController()
+        //val navController = rememberNavController()
         NavHost(
             navController = navController,
             startDestination = SubGraph.Auth
@@ -128,9 +124,9 @@ fun RootNavGraph() {
 
             }
             composable<SubGraph.DestGraph> {
-                BottomBar()
+                BottomBar(appState, navController)
             }
         }
-    }
+
 
 }

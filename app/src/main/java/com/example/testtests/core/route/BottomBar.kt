@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -37,10 +38,10 @@ import com.example.courses.ui.profile.ProfileScreen
 import com.example.courses.ui.profile.ProfileViewModel
 
 @Composable
-fun BottomBar() {
+fun BottomBar(appState: AppState, navController: NavHostController) {
 
 
-    val navController = rememberNavController()
+    //val navController = rememberNavController()
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
