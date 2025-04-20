@@ -1,6 +1,7 @@
 package com.example.testtests.di
 
 import android.content.Context
+import com.example.common.data.AuthHandler
 import com.example.common.data.DataStoreManager
 import com.example.courses.data.local.FavoriteDao
 import dagger.Module
@@ -31,5 +32,11 @@ object AppModule{
     @Singleton
     fun provideDataStoreManager(@ApplicationContext context: Context): DataStoreManager {
         return DataStoreManager(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthHandler(dataStoreManager: DataStoreManager): AuthHandler {
+        return AuthHandler(dataStoreManager)
     }
 }

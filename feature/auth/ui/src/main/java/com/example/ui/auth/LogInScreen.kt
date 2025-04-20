@@ -44,7 +44,7 @@ fun LogInScreenRoot(
     val isLoggedIn by viewModel.isLoggedIn.collectAsStateWithLifecycle()
 
     LaunchedEffect(isLoggedIn) {
-        if(isLoggedIn) {
+        if (isLoggedIn) {
             onLogInClick()
         }
     }
@@ -79,109 +79,108 @@ private fun LogInScreen(
 
 
 
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Center
-        ) {
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.Center
+    ) {
 
 
-            LabeledText(
-                text = stringResource(R.string.sign_in),
-                style = MaterialTheme.typography.displayMedium,
-                modifier = Modifier.padding(bottom = 20.dp)
-            )
+        LabeledText(
+            text = stringResource(R.string.sign_in),
+            style = MaterialTheme.typography.displayMedium,
+            modifier = Modifier.padding(bottom = 20.dp)
+        )
 
-            LabeledTextField(
-                label = stringResource(R.string.email_txt),
-                value = userEmail.value,
-                onValueChange = {
-                    userEmail.value = it
-                    onAction(LogInAction.OnEmailChange(it))
-                },
-                placeholder = stringResource(R.string.example_gmail_com),
-                modifier = Modifier.padding(16.dp)
-            )
+        LabeledTextField(
+            label = stringResource(R.string.email_txt),
+            value = userEmail.value,
+            onValueChange = {
+                userEmail.value = it
+                onAction(LogInAction.OnEmailChange(it))
+            },
+            placeholder = stringResource(R.string.example_gmail_com),
+            modifier = Modifier.padding(16.dp)
+        )
 
-            LabeledTextField(
-                label = stringResource(R.string.password_txt),
-                value = userPassword.value,
-                onValueChange = {
-                    userPassword.value = it
-                    onAction(LogInAction.OnPasswordChange(it))
-                },
-                placeholder = stringResource(R.string.put_password),
-                modifier = Modifier.padding(20.dp)
-            )
+        LabeledTextField(
+            label = stringResource(R.string.password_txt),
+            value = userPassword.value,
+            onValueChange = {
+                userPassword.value = it
+                onAction(LogInAction.OnPasswordChange(it))
+            },
+            placeholder = stringResource(R.string.put_password),
+            modifier = Modifier.padding(20.dp)
+        )
 
-            Button(
-                onClick = {
-                    onAction(LogInAction.OnLogInClick)
+        Button(
+            onClick = {
+                onAction(LogInAction.OnLogInClick)
 //                    coroutineScope.launch {
 //                        userPref.setLoggedIn(true)
 //                    }
+            },
+            enabled = state.isEnabled,
+            modifier = Modifier
+                .padding(vertical = 20.dp, horizontal = 14.dp)
+                .fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary
+            )
+        ) {
+            Text(
+                text = stringResource(R.string.sign_in),
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+        ForgotRow()
+
+        HorizontalDivider(
+            color = MaterialTheme.colorScheme.onSurface,
+            thickness = 1.dp
+        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Button(
+                onClick = {
+                    uriHandler.openUri(VK_URL)
                 },
-                enabled = state.isEnabled,
                 modifier = Modifier
-                    .padding(vertical = 20.dp, horizontal = 14.dp)
-                    .fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
-                )
+                    .padding(16.dp)
+                    .fillMaxWidth()
+                    .weight(1f),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
             ) {
                 Text(
-                    text = stringResource(R.string.sign_in),
-                    style = MaterialTheme.typography.bodyMedium
+                    text = "VK",
+                    style = MaterialTheme.typography.titleLarge
                 )
             }
-            ForgotRow()
-
-            HorizontalDivider(
-                color = MaterialTheme.colorScheme.onSurface,
-                thickness = 1.dp
-            )
-
-            Row(
+            Button(
+                onClick = {
+                    uriHandler.openUri(OK_URL)
+                },
                 modifier = Modifier
+                    .padding(12.dp)
                     .fillMaxWidth()
-                    .padding(12.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly
+                    .weight(1f),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF98509))
             ) {
-                Button(
-                    onClick = {
-                        uriHandler.openUri(VK_URL)
-                    },
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
-                        .weight(1f),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
-                ) {
-                    Text(
-                        text = "VK",
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                }
-                Button(
-                    onClick = {
-                        uriHandler.openUri(OK_URL)
-                    },
-                    modifier = Modifier
-                        .padding(12.dp)
-                        .fillMaxWidth()
-                        .weight(1f),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF98509))
-                ) {
-                    Text(
-                        text = "OK",
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                }
+                Text(
+                    text = "OK",
+                    style = MaterialTheme.typography.titleLarge
+                )
             }
         }
-    //}
+    }
 }
 
 //            Text(

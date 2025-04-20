@@ -2,6 +2,7 @@ package com.example.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.common.data.AuthHandler
 import com.example.common.utils.isValidEmail
 import com.example.common.data.DataStoreManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LogInViewModel @Inject constructor(
-    private val dataStoreManager: DataStoreManager
+    private val authHandler: AuthHandler
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LoginState())
@@ -44,12 +45,14 @@ class LogInViewModel @Inject constructor(
 //
 //    val isLoggedIn: StateFlow<Boolean> = _isLoggedIn.asStateFlow()
 
-    val isLoggedIn: StateFlow<Boolean> = dataStoreManager.isLoggedIn
-        .stateIn(
-            viewModelScope,
-            SharingStarted.Eagerly, // Запускаем flow сразу
-            initialValue = false
-        )
+//    val isLoggedIn: StateFlow<Boolean> = dataStoreManager.isLoggedIn
+//        .stateIn(
+//            viewModelScope,
+//            SharingStarted.Eagerly, // Запускаем flow сразу
+//            initialValue = false
+//        )
+
+    val isLoggedIn = authHandler.isLoggedIn
 
 
     fun onAction(action: LogInAction) {
@@ -100,7 +103,13 @@ class LogInViewModel @Inject constructor(
 
     private fun saveSession() {
         viewModelScope.launch {
-            dataStoreManager.setLoggedIn(true)
+            authHandler.logIn()
+        }
+    }
+
+    private fun logUot() {
+        viewModelScope.launch {
+            authHandler.logOut()
         }
     }
 
