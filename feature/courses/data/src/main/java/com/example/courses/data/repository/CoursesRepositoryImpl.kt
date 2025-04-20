@@ -16,21 +16,6 @@ class CoursesRepositoryImpl @Inject constructor(
     private val courseDetailsMapper: CourseDetailsMapper,
 ) : CoursesRepository {
 
-//    override suspend fun getCourseById(id: Int): Either<Failure,Course> =
-//        safeApiCall(
-//            apiCall = {
-//                api.getCourses().takeIf {response ->
-//                    response.body().courses.firstOrNull {dto ->
-//                        dto.id == id
-//                    }
-//                }
-//            },
-//            mapper = {
-//                coursesListMapper.map(it.courses)
-//            }
-//        )
-
-
     override suspend fun getAllCourses(): Either<Failure, List<Course>> =
         safeApiCall(
             apiCall = {
