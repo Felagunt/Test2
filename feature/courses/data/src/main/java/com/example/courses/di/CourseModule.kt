@@ -3,6 +3,7 @@ package com.example.courses.di
 import android.content.Context
 import com.example.common.utils.BASE_URL
 import com.example.courses.data.local.FavoriteDao
+import com.example.courses.data.mappers.CourseDetailsMapper
 import com.example.courses.data.mappers.CoursesListMapper
 import com.example.courses.data.network.CoursesApi
 import com.example.courses.data.network.LocalJsonInterceptor
@@ -44,11 +45,13 @@ object CourseModule {
     fun provideCoursesRepository(
         api: CoursesApi,
         dao: FavoriteDao,
-        mapper: CoursesListMapper
+        mapperList: CoursesListMapper,
+        mapperDetails: CourseDetailsMapper
     ): CoursesRepository {
         return CoursesRepositoryImpl(
             api = api,
-            coursesListMapper = mapper
+            coursesListMapper = mapperList,
+            courseDetailsMapper = mapperDetails
         )
     }
 

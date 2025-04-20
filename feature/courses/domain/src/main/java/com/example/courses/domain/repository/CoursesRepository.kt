@@ -11,5 +11,5 @@ interface CoursesRepository {
 
     suspend fun getAllCourses(): Either<Failure, List<Course>>
 
-    //suspend fun getCourseById(id: Int): Course
+    suspend fun getCourseById(id: Int): Either<Failure, Course>
 }

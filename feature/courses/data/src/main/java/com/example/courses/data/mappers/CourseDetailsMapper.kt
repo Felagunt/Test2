@@ -6,11 +6,8 @@ import com.example.courses.domain.models.Course
 import javax.inject.Inject
 
 class CourseDetailsMapper @Inject constructor() :
-    ResultMapper<List<CourseDto>, List<Course>> {
-    override fun map(input: List<CourseDto>): List<Course> =
-        input.filter {
-            it.id != null
-        }.map {
-            it.toCourse()
-        }
+    ResultMapper<List<CourseDto>, Course> {
+    override fun map(input: List<CourseDto>): Course =
+        input.firstOrNull()?.toCourse()
+            ?: throw IllegalArgumentException("Course not found")
 }

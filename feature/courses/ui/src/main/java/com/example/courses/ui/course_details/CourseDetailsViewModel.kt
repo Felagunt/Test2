@@ -6,6 +6,7 @@ import com.example.common.utils.fold
 import com.example.common.utils.getErrorMessage
 import com.example.courses.domain.use_cases.DeleteFromFavoriteUseCase
 import com.example.courses.domain.use_cases.GetAllCoursesUseCase
+import com.example.courses.domain.use_cases.GetCourseByIdUseCase
 import com.example.courses.domain.use_cases.GetFavoriteCoursesUseCase
 import com.example.courses.domain.use_cases.InsertFavoriteCourseUseCase
 import com.example.courses.domain.use_cases.IsCourseFavoriteUseCase
@@ -22,7 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CourseDetailsViewModel @Inject constructor(
-    private val getAllCoursesUseCase: GetAllCoursesUseCase,
+    private val getCourseByIdUseCase: GetCourseByIdUseCase,
     private val deleteFromFavoriteUseCase: DeleteFromFavoriteUseCase,
     private val insertFavoriteCourseUseCase: InsertFavoriteCourseUseCase,
     private val isCourseFavoriteUseCase: IsCourseFavoriteUseCase,
@@ -66,7 +67,7 @@ class CourseDetailsViewModel @Inject constructor(
 
     private fun fetchCourse(id: Int) {
         viewModelScope.launch {
-            getAllCoursesUseCase.invoke().fold(
+            getCourseByIdUseCase.invoke(id).fold(
                 { failure ->
                     _state.update {
                         it.copy(
@@ -74,11 +75,7 @@ class CourseDetailsViewModel @Inject constructor(
                         )
                     }
                 },
-                { list ->
-
-                    val course = list.first {
-                        it.id == id
-                    }
+                { course ->
                     _state.update {
                         it.copy(
                             course = course
