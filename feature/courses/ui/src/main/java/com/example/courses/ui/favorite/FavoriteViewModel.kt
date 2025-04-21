@@ -1,7 +1,6 @@
 package com.example.courses.ui.favorite
 
 import android.util.Log
-import android.util.Printer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.courses.domain.models.Course
@@ -12,7 +11,6 @@ import com.example.courses.domain.use_cases.IsCourseFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
