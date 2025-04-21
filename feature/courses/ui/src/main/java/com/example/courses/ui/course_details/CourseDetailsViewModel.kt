@@ -45,7 +45,7 @@ class CourseDetailsViewModel @Inject constructor(
 
     fun onAction(action: CourseDetailsAction) {
         when (action) {
-            is CourseDetailsAction.OnAddFavoriteTvShow -> {
+            is CourseDetailsAction.OnAddFavorite -> {
                 viewModelScope.launch {
                     if (_state.value.course?.hasLike == true) {
                         deleteFromFavoriteUseCase.invoke(_state.value.course!!)

@@ -7,12 +7,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,14 +22,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.example.common.presentation.components.ErrorScreen
 import com.example.common.presentation.components.LoadingScreen
+import com.example.courses.ui.R
+import com.example.courses.ui.favorite.components.FavoriteBtn
 
 @Composable
 fun CourseDetailsScreenRoot(
@@ -86,26 +85,35 @@ private fun CourseDetailsScreen(
                     }
                 },
                 actions = {
+//                    state.course?.let {
+//                        FavoriteBtn(
+//                            onClick = {
+//                                onAction(CourseDetailsAction.OnAddFavorite)
+//                            },
+//                            course = it,
+//                            modifier = TODO()
+//                        )
+//                    }
                     IconButton(onClick = {
-                        onAction(CourseDetailsAction.OnAddFavoriteTvShow)
+                        onAction(CourseDetailsAction.OnAddFavorite)
                     }) {
                         Icon(
-                            imageVector = //Icons.Default.FavoriteBorder,
-                            if (state.course?.hasLike == true) {
-                                Icons.Filled.Favorite
+                            painter = if(state.course?.hasLike == true) {
+                                painterResource(R.drawable.baseline_bookmark_24)
                             } else {
-                                Icons.Outlined.FavoriteBorder
-                            },
-                            tint = MaterialTheme.colorScheme.surfaceTint,
-                            contentDescription = //"Add to favorite"
-                            if (state.course?.hasLike == true) {
-                                "Add to favorite"
+                                painterResource(R.drawable.baseline_bookmark_border_24)
+                            }
+                            ,
+                            contentDescription = null,
+                            tint = if (state.course?.hasLike == true ) {
+                                MaterialTheme.colorScheme.secondary//TODO
                             } else {
-                                "Remove from favorite"
+                                MaterialTheme.colorScheme.onBackground
                             }
                         )
                     }
-                },
+                }
+                ,
                 scrollBehavior = scrollBehavior
             )
         }

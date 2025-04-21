@@ -1,5 +1,8 @@
 package com.example.courses.ui.favorite
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -85,16 +88,21 @@ private fun FavoriteScreen(
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         items(list) { course ->
-                            CourseListItem(
-                                course = course,
-                                modifier = Modifier
-                                    .clickable {
-                                        onAction(FavoriteAction.OnCourseClick(course))
-                                    },
-                                onFavoriteClick = {
-                                    onAction(FavoriteAction.OnFavoriteClick(course))
-                                }
-                            )
+                            AnimatedVisibility(
+                                visible = list.contains(course),
+                                exit = fadeOut(tween(700))
+                            ) {
+                                CourseListItem(//TODO favoritebtn don't filed
+                                    course = course,
+                                    modifier = Modifier
+                                        .clickable {
+                                            onAction(FavoriteAction.OnCourseClick(course))
+                                        },
+                                    onFavoriteClick = {
+                                        onAction(FavoriteAction.OnFavoriteClick(course))
+                                    }
+                                )
+                            }
                         }
                     }
                 } else {

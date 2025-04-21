@@ -1,15 +1,19 @@
 package com.example.courses.ui.favorite
 
+import android.util.Log
+import android.util.Printer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.courses.domain.models.Course
 import com.example.courses.domain.use_cases.DeleteFromFavoriteUseCase
 import com.example.courses.domain.use_cases.GetFavoriteCoursesUseCase
 import com.example.courses.domain.use_cases.InsertFavoriteCourseUseCase
+import com.example.courses.domain.use_cases.IsCourseFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -22,7 +26,8 @@ import javax.inject.Inject
 class FavoriteViewModel @Inject constructor(
     private val getFavoriteCoursesUseCase: GetFavoriteCoursesUseCase,
     private val deleteFromFavoriteUseCase: DeleteFromFavoriteUseCase,
-    private val insertFavoriteCourseUseCase: InsertFavoriteCourseUseCase
+    private val insertFavoriteCourseUseCase: InsertFavoriteCourseUseCase,
+    private val isCourseFavoriteUseCase: IsCourseFavoriteUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(FavoriteState())
@@ -40,15 +45,21 @@ class FavoriteViewModel @Inject constructor(
         when(action){
             is FavoriteAction.OnFavoriteClick -> {
                 viewModelScope.launch {
-                    if(action.course.hasLike) {
+                    val isCurrentlyFavorite =
+                        isCourseFavoriteUseCase.invoke(action.course.id).first()
+                    Log.d("FavoriteClick", "Is course favorite: $isCurrentlyFavorite")
+                    if(isCurrentlyFavorite) {
+                        Log.d("FavoriteClick", "Deleting course from favorites")
                         deleteFromFavoriteUseCase.invoke(action.course)
+
                     } else {
+                        Log.d("FavoriteClick", "Inserting course into favorites")
                         insertFavoriteCourseUseCase.invoke(action.course)
                     }
                     _state.update { currentState ->
                         val updatedCourseList = currentState.favoriteList?.map {
                             if (it.id == action.course.id) {
-                                it.copy(hasLike = !action.course.hasLike)
+                                it.copy(hasLike = !isCurrentlyFavorite)
                             } else {
                                 it
                             }
@@ -69,13 +80,26 @@ class FavoriteViewModel @Inject constructor(
 
     }
 
+//    private fun observeFavoriteStatus() {
+//        isCourseFavoriteUseCase.invoke()
+//            .onEach { isFavorite->
+//                _state.update {
+//                    it.copy(
+//                        favoriteList =
+//                    )
+//                }
+//            }
+//    }
+
     private fun getFavoriteCourses() {
         getFavoriteCoursesUseCase
             .invoke()
             .onEach { list ->
                 _state.update {
                     it.copy(
-                        favoriteList = list
+                        favoriteList = list.map {course ->
+                            course.copy(hasLike = true)//is it?
+                        }
                     )
                 }
             }.launchIn(viewModelScope)
