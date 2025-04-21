@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.testtests.data.local.entity.CourseEntity
+import com.example.courses.data.local.FavoriteDao
+import com.example.courses.data.local.entity.CourseEntity
 
 
 @Database(
-    version = 1,
+    version = 2,
     entities = [CourseEntity::class],
     exportSchema = false
 )
@@ -19,6 +20,8 @@ abstract class FavoriteDataBase: RoomDatabase() {
     companion object {
         fun getInstance(context: Context) = Room
             .databaseBuilder(context, FavoriteDataBase::class.java,"favorite.db")
+            //.addMigrations(MIGRATION_1_2)
+            .fallbackToDestructiveMigration(true)
             .build()
     }
 }

@@ -5,6 +5,7 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.courses.domain.models.Course
 import kotlinx.serialization.Serializable
 
 
@@ -19,9 +20,13 @@ sealed interface SubGraph {
     @Serializable
     data object Auth: SubGraph
 
+
 }
 
 sealed interface Auth {
+
+    @Serializable
+    data object AuthCheck: Auth
 
     @Serializable
     data object Onboarding : Auth

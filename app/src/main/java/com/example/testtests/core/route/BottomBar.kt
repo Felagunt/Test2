@@ -1,5 +1,7 @@
 package com.example.testtests.core.route
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
@@ -21,14 +23,18 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.example.testtests.presentation.auth.LogInScreenRoot
-import com.example.testtests.presentation.auth.LogInViewModel
-import com.example.testtests.presentation.courses_list.AllCoursesScreenRoot
-import com.example.testtests.presentation.courses_list.AllCoursesViewModel
-import com.example.testtests.presentation.dashboard.Onboarding
-import com.example.testtests.presentation.favorite.FavoriteScreenRoot
-import com.example.testtests.presentation.favorite.FavoriteViewModel
-import com.example.testtests.presentation.profile.ProfileScreen
+import androidx.navigation.toRoute
+import com.example.courses.ui.course_details.CourseDetailsScreenRoot
+import com.example.courses.ui.course_details.CourseDetailsViewModel
+import com.example.ui.auth.LogInScreenRoot
+import com.example.ui.auth.LogInViewModel
+import com.example.courses.ui.courses_list.AllCoursesScreenRoot
+import com.example.courses.ui.courses_list.AllCoursesViewModel
+import com.example.ui.dashboard.Onboarding
+import com.example.courses.ui.favorite.FavoriteScreenRoot
+import com.example.courses.ui.favorite.FavoriteViewModel
+import com.example.courses.ui.profile.ProfileScreen
+import com.example.courses.ui.profile.ProfileViewModel
 
 @Composable
 fun BottomBar() {
@@ -84,14 +90,26 @@ fun BottomBar() {
                 .fillMaxSize()
                 .padding(it),
             navController = navController,
-            startDestination = SubGraph.DestGraph
+            startDestination = SubGraph.DestGraph,
+            exitTransition = {
+                slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Start,
+                    tween(700)
+                )
+            },
+            popEnterTransition = {
+                slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.End,
+                    tween(700)
+                )
+            }
         ) {
 
 
             navigation<SubGraph.DestGraph>(
                 startDestination = Dest.Home,
             ) {
-                composable<Dest.Home> {
+                composable<Dest.Home>{
                     val viewModel = hiltViewModel<AllCoursesViewModel>()
                     AllCoursesScreenRoot(
                         viewModel = viewModel,
@@ -104,6 +122,15 @@ fun BottomBar() {
                 }
 
                 composable<SubGraph.CourseDetails> {
+                    val args = it.toRoute<SubGraph.CourseDetails>()
+                    val viewModel = hiltViewModel<CourseDetailsViewModel>()
+                    CourseDetailsScreenRoot(
+                        id = args.id,
+                        viewModel = viewModel,
+                        onBackClick = {
+                            navController.navigateUp()
+                        }
+                    )
 
                 }
                 composable<Dest.Favorite> {
@@ -119,7 +146,18 @@ fun BottomBar() {
                 }
 
                 composable<Dest.Profile> {
-                    ProfileScreen()
+                    val viewModel = hiltViewModel<ProfileViewModel>()
+                    ProfileScreen(
+                        viewModel = viewModel,
+                        onLogOut = {
+                            navController.navigate(Auth.LogIn) {
+                                popUpTo<SubGraph.DestGraph> {//TODO
+                                    saveState = false
+                                    inclusive = true
+                                }
+                            }
+                        }
+                    )
                 }
             }
         }

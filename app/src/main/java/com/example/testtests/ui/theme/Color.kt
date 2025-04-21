@@ -2,6 +2,9 @@ package com.example.testtests.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val okBtn = Color(0xFFF98509)// 0%, #F95D00 100%
+
+
 val primaryLight = Color(0xFF5D5F5F)
 val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFFFFFFFF)
@@ -37,6 +40,7 @@ val surfaceContainerLowLight = Color(0xFFF6F3F2)
 val surfaceContainerLight = Color(0xFFF1EDEC)
 val surfaceContainerHighLight = Color(0xFFEBE7E7)
 val surfaceContainerHighestLight = Color(0xFFE5E2E1)
+
 
 val primaryDark = Color(0xFFFFFFFF)
 val onPrimaryDark = Color(0xFF2F3131)

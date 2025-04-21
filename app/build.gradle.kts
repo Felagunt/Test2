@@ -43,6 +43,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":common"))
+    implementation(project(":core"))
+    implementation(project(":feature:courses:data"))
+    implementation(project(":feature:courses:domain"))
+    implementation(project(":feature:courses:ui"))
+    implementation(project(":feature:auth:ui"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -65,7 +71,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     //implementation(libs.androidx.lifecycle.runtime.compose)
 
-    implementation(libs.ktor.client.okhttp)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
@@ -77,10 +82,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.sqlite.bundled)
-    implementation(libs.koin.compose)
-    implementation(libs.koin.compose.viewmodel)
-    implementation(libs.koin.android)
-    implementation(libs.koin.androidx.compose)
     api(libs.koin.core)
 
     implementation(libs.androidx.room.runtime)
@@ -90,4 +91,7 @@ dependencies {
     implementation(libs.bundles.coil)
 
     implementation(libs.bundles.retrofit)
+
+    implementation(libs.datastore)
+    implementation(libs.datastore.proto)
 }

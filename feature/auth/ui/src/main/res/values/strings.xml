@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="continue_btn">Продолжить</string>
+    <string name="put_password">Введите пароль</string>
+    <string name="password_txt">Пароль</string>
+    <string name="sign_in">Вход</string>
+    <string name="tittle_onbording">Тысячи курсов\n в одном месте</string>
+    <string name="example_gmail_com">example@gmail.com</string>
+    <string name="email_txt">Email</string>
+</resources>
