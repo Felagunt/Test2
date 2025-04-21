@@ -44,7 +44,6 @@ object CourseModule {
     @Singleton
     fun provideCoursesRepository(
         api: CoursesApi,
-        dao: FavoriteDao,
         mapperList: CoursesListMapper,
         mapperDetails: CourseDetailsMapper
     ): CoursesRepository {
