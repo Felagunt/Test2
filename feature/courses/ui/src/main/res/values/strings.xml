@@ -3,4 +3,5 @@
     <string name="on_date_of_update">По дате добавления</string>
     <string name="about_btn"><![CDATA[Подробнее ->]]></string>
     <string name="log_out_btn">Выйти</string>
+    <string name="add_courses_to_show_on_favorite_screen">Add courses to show on favorite screen</string>
 </resources>

@@ -21,7 +21,7 @@ abstract class FavoriteDataBase: RoomDatabase() {
         fun getInstance(context: Context) = Room
             .databaseBuilder(context, FavoriteDataBase::class.java,"favorite.db")
             //.addMigrations(MIGRATION_1_2)
-            .fallbackToDestructiveMigration(true)
+            //.fallbackToDestructiveMigration(true)
             .build()
     }
 }

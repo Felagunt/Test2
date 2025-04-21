@@ -81,9 +81,10 @@ class FavoriteViewModel @Inject constructor(
             }.launchIn(viewModelScope)
     }
 
-    private fun deleteFavoriteCourse(course: Course) = deleteFromFavoriteUseCase
-        .invoke(course)
-        .launchIn(viewModelScope)
-
+    private fun deleteFavoriteCourse(course: Course) {
+        viewModelScope.launch {
+            deleteFromFavoriteUseCase.invoke(course)
+        }
+    }
 
 }

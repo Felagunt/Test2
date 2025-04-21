@@ -150,12 +150,12 @@ fun BottomBar() {
                     ProfileScreen(
                         viewModel = viewModel,
                         onLogOut = {
-                            navController.navigate(Auth.LogIn) {
-                                popUpTo<SubGraph.DestGraph> {//TODO
-                                    saveState = false
-                                    inclusive = true
-                                }
-                            }
+//                            navController.navigate(Auth.LogIn) {
+//                                popUpTo<SubGraph.DestGraph> {//TODO
+//                                    saveState = false
+//                                    inclusive = true
+//                                }
+//                            }
                         }
                     )
                 }

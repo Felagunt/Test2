@@ -1,5 +1,6 @@
 package com.example.courses.ui.courses_list
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common.utils.fold
@@ -54,9 +55,12 @@ class AllCoursesViewModel @Inject constructor(
                 viewModelScope.launch {
                     val isCurrentlyFavorite =
                         isCourseFavoriteUseCase.invoke(action.course.id).first()
+                    Log.d("FavoriteClick", "Is course favorite: $isCurrentlyFavorite")
                     if (isCurrentlyFavorite) {
+                        Log.d("FavoriteClick", "Deleting course from favorites")
                         deleteFromFavoriteUseCase.invoke(action.course)
                     } else {
+                        Log.d("FavoriteClick", "Inserting course into favorites")
                         insertFavoriteCourseUseCase.invoke(action.course)
                     }
                     _state.update { currentState ->

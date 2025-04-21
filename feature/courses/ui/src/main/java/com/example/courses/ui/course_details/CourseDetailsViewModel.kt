@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.common.utils.fold
 import com.example.common.utils.getErrorMessage
 import com.example.courses.domain.use_cases.DeleteFromFavoriteUseCase
-import com.example.courses.domain.use_cases.GetAllCoursesUseCase
 import com.example.courses.domain.use_cases.GetCourseByIdUseCase
 import com.example.courses.domain.use_cases.GetFavoriteCoursesUseCase
 import com.example.courses.domain.use_cases.InsertFavoriteCourseUseCase
@@ -33,7 +32,10 @@ class CourseDetailsViewModel @Inject constructor(
     private val _state = MutableStateFlow(CourseDetailsState())
     val state = _state
         .onStart {
-            observeFavoriteStatus()
+            if (_state.value.course != null) {
+                observeFavoriteStatus()//TODO
+            }
+
         }
         .stateIn(
             viewModelScope,
@@ -88,16 +90,19 @@ class CourseDetailsViewModel @Inject constructor(
 
 
     private fun observeFavoriteStatus() {
-        isCourseFavoriteUseCase.invoke(_state.value.course!!.id)
-            .onEach { isFavorite ->
-                val curCourse = _state.value.course
-                curCourse?.hasLike = isFavorite
-                _state.update {curState ->
-                    curState.copy(
-                        course = curCourse//TODO
-                    )
+        _state.value.course?.let {course ->
+            isCourseFavoriteUseCase.invoke(course.id)
+                .onEach { isFavorite ->
+                    val curCourse = _state.value.course
+                    curCourse?.hasLike = isFavorite
+                    _state.update {curState ->
+                        curState.copy(
+                            course = curCourse//TODO
+                        )
+                    }
                 }
-            }
-            .launchIn(viewModelScope)
+                .launchIn(viewModelScope)
+
+        }
     }
 }

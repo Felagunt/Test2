@@ -1,5 +1,6 @@
 package com.example.courses.ui.favorite
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -20,6 +23,7 @@ import com.example.common.presentation.components.ErrorScreen
 import com.example.common.presentation.components.LoadingScreen
 import com.example.courses.ui.courses_list.components.CourseListItem
 import com.example.courses.domain.models.Course
+import com.example.courses.ui.R
 
 @Composable
 fun FavoriteScreenRoot(
@@ -76,15 +80,17 @@ private fun FavoriteScreen(
 //                        paddingValues = paddingValues
 //                    )
 //                }
-                if (state.favoriteList.isNotEmpty()) {
+                if (list.isNotEmpty()) {
                     LazyColumn(
-                        modifier = Modifier
-                            .padding(12.dp)
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         items(list) { course ->
                             CourseListItem(
                                 course = course,
-                                modifier = Modifier,
+                                modifier = Modifier
+                                    .clickable {
+                                        onAction(FavoriteAction.OnCourseClick(course))
+                                    },
                                 onFavoriteClick = {
                                     onAction(FavoriteAction.OnFavoriteClick(course))
                                 }
@@ -93,8 +99,9 @@ private fun FavoriteScreen(
                     }
                 } else {
                     Text(
-                        text = "Add courses to show on favorite screen",
-                        style = MaterialTheme.typography.titleLarge
+                        text = stringResource(R.string.add_courses_to_show_on_favorite_screen),
+                        style = MaterialTheme.typography.titleLarge,
+                        textAlign = TextAlign.Center
                     )
                 }
             }

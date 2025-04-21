@@ -1,5 +1,6 @@
 package com.example.courses.data.repository
 
+import android.util.Log
 import com.example.courses.data.local.FavoriteDao
 import com.example.courses.data.mappers.toCourse
 import com.example.courses.data.mappers.toEntity
@@ -16,6 +17,7 @@ class FavoriteRepositoryImpl @Inject constructor(
     override fun getFavoriteCourses(): Flow<List<Course>> {
         return dao.getFavoriteCourses()
             .map { list ->
+                Log.d("favRepo", "fetched courses : $list")
                 list.map {
                     it.toCourse()
                 }
@@ -30,10 +32,12 @@ class FavoriteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteFavoriteCourse(course: Course) {
+        Log.d("favRepo", "deleting course : $course")
         dao.deleteCourse(course.toEntity())
     }
 
     override suspend fun insertFavoriteCourse(course: Course) {
+        Log.d("favRepo", "inserting course : $course")
         dao.insertCourse(course.toEntity())
     }
 }
