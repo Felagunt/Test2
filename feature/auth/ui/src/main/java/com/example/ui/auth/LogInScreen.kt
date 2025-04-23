@@ -55,7 +55,7 @@ fun LogInScreenRoot(
             when (action) {
                 is LogInAction.OnLogInClick -> {
                     //onLogInClick()
-                    viewModel.onAction(action)
+                    viewModel.onAction(action)//todo its work?
                 }
 
                 else ->

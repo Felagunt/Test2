@@ -1,6 +1,5 @@
 package com.example.ui.dashboard
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,37 +13,32 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.auth.ui.R
 import com.example.common.presentation.components.RowChips
+import com.example.ui.auth.LogInViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun Onboarding(
+    viewModel: LogInViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onNavigationNext: () -> Unit,
+    onNavigationToLogin: () -> Unit
 ) {
+
+    val isLoggedIn by viewModel.isLoggedIn.collectAsStateWithLifecycle()
+
     val rowList = mutableListOf(
-        "ОС Администрирование",
-        "RabbitMQ",
-        "Траффик",
-        "Маркетинг",
-        "B2B маркетинг",
-        "Google аналитика",
-        "Исследователь",
-        "Веб-аналитика",
-        "Big Data",
-        "Ci/Cd",
-        "Веб-дизайн",
-        "Cinema 4D",
-        "Промпт",
-        "www",
-        "Three.js",
-        "Парсинг",
-        "Python-разработчик"
+        "ОС Администрирование", "RabbitMQ", "Траффик", "Маркетинг", "B2B маркетинг",
+        "Google аналитика", "Исследователь", "Веб-аналитика", "Big Data", "Ci/Cd",
+        "Веб-дизайн", "Cinema 4D", "Промпт", "www", "Three.js", "Парсинг", "Python-разработчик"
     )
     Box(
         modifier = Modifier
@@ -78,7 +72,11 @@ fun Onboarding(
         }
         Button(
             onClick = {
-                onClick()
+                if(isLoggedIn) {
+                    onNavigationNext()
+                } else {
+                    onNavigationToLogin()
+                }
             },
             modifier = Modifier
                 .fillMaxWidth()

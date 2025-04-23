@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,58 +17,76 @@ import com.example.ui.auth_check.AuthCheckScreen
 import kotlinx.coroutines.delay
 
 @Composable
-fun RootNavGraph() {
-//    private companion object {
-//        const val ANIMATION_DURATION = 700
-//    }
-    AppTheme {
+fun RootNavGraph(appState: AppState, navController: NavHostController) {
 
-
-        val navController = rememberNavController()
+        //val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = SubGraph.Auth,
-            exitTransition = {
-                slideOutOfContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Start,
-                    tween(700)
-                )
-            },
-            popEnterTransition = {
-                slideIntoContainer(
-                    AnimatedContentTransitionScope.SlideDirection.End,
-                    tween(700)
-                )
-            }
+            startDestination = SubGraph.Auth
         ) {
             navigation<SubGraph.Auth>(
-                startDestination = Auth.AuthCheck
+                startDestination = Auth.Onboarding
             ) {
 
-                composable<Auth.AuthCheck>{
-                    val viewModel = hiltViewModel<LogInViewModel>()
-                    AuthCheckScreen(
+//                composable<Auth.AuthCheck>(
+//                    exitTransition = {
+//                        return@composable slideOutOfContainer(
+//                            AnimatedContentTransitionScope.SlideDirection.Start,
+//                            tween(700)
+//                        )
+//                    },
+//                    popEnterTransition = {
+//                        return@composable slideIntoContainer(
+//                            AnimatedContentTransitionScope.SlideDirection.End,
+//                            tween(700)
+//                        )
+//                    }
+//                ) {
+//                    val viewModel = hiltViewModel<LogInViewModel>()
+//                    AuthCheckScreen(
+//                        viewModel = viewModel,
+//                        onLoggedIn = {
+//                            navController.navigate(SubGraph.DestGraph) {
+//                                popUpTo<SubGraph.DestGraph> {
+//                                    inclusive = true
+//                                }
+//                            }
+//                        },
+//                        onNotLoggedIn = {
+//                            navController.navigate(Auth.Onboarding) {
+//                                popUpTo<SubGraph.DestGraph> {
+//                                    inclusive = true
+//                                }
+//                            }
+//                        }
+//                    )
+//                }
+
+                composable<Auth.Onboarding>(
+                    exitTransition = {
+                        return@composable slideOutOfContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Start,
+                            tween(700)
+                        )
+                    },
+                    popEnterTransition = {
+                        return@composable slideIntoContainer(
+                            AnimatedContentTransitionScope.SlideDirection.End,
+                            tween(700)
+                        )
+                    }
+                ) {
+                    val viewModel = hiltViewModel<com.example.ui.auth.LogInViewModel>()
+                    com.example.ui.dashboard.Onboarding(
                         viewModel = viewModel,
-                        onLoggedIn = {
+                        onNavigationNext = {
                             navController.navigate(SubGraph.DestGraph) {
-                                popUpTo<SubGraph.DestGraph> {
+                                popUpTo<SubGraph.Auth> {
                                     inclusive = true
                                 }
                             }
                         },
-                        onNotLoggedIn = {
-                            navController.navigate(Auth.Onboarding) {
-                                popUpTo<SubGraph.DestGraph> {
-                                    inclusive = true
-                                }
-                            }
-                        }
-                    )
-                }
-
-                composable<Auth.Onboarding>{
-                    com.example.ui.dashboard.Onboarding(
-                        onClick = {
+                        onNavigationToLogin = {
                             navController.navigate(Auth.LogIn) {
                                 popUpTo<Auth.Onboarding> {
                                     saveState = false
@@ -79,7 +98,20 @@ fun RootNavGraph() {
                     )
                 }
 
-                composable<Auth.LogIn>{
+                composable<Auth.LogIn>(
+                    exitTransition = {
+                        return@composable slideOutOfContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Start,
+                            tween(700)
+                        )
+                    },
+                    popEnterTransition = {
+                        return@composable slideIntoContainer(
+                            AnimatedContentTransitionScope.SlideDirection.End,
+                            tween(700)
+                        )
+                    }
+                ) {
                     val viewModel = hiltViewModel<com.example.ui.auth.LogInViewModel>()
 //                    val isLoggedIn = viewModel.isLoggedIn.collectAsStateWithLifecycle()
 //                    LaunchedEffect(isLoggedIn) {
@@ -101,9 +133,9 @@ fun RootNavGraph() {
 
             }
             composable<SubGraph.DestGraph> {
-                BottomBar()
+                BottomBar(appState, navController)
             }
         }
-    }
+
 
 }
