@@ -123,7 +123,7 @@ class AllCoursesViewModel @Inject constructor(
         }
 
 
-    private fun loadCourses() {
+    fun loadCourses() {
         viewModelScope.launch {
             getAllCoursesUseCase.invoke().fold(
                 { failure ->

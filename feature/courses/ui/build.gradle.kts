@@ -76,4 +76,12 @@ dependencies {
 
 
     implementation(libs.bundles.coil)
+
+    implementation(libs.mockito.core)
+    implementation(libs.mockito.inline)
+    implementation(libs.kotlinx.coroutines.test)
+    implementation(libs.androidx.core.testing)
+    implementation(libs.hilt.android.testing)
+    testImplementation(libs.mockk)
+
 }
