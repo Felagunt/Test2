@@ -10,7 +10,5 @@ class GetFavoriteCoursesUseCase @Inject constructor(
     private val repository: FavoriteRepository
 ) {
 
-    operator fun invoke() = repository.getFavoriteCourses().also {
-        println("favorite "+ "$it")
-    }
+    operator fun invoke() = repository.getFavoriteCourses()
 }

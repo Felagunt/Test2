@@ -9,8 +9,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.testtests.core.route.App
-import com.example.testtests.core.route.BottomBar
-import com.example.testtests.core.route.RootNavGraph
 import com.example.testtests.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
