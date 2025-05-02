@@ -91,7 +91,19 @@ fun BottomBar(appState: AppState, navController: NavHostController) {
                 .fillMaxSize()
                 .padding(it),
             navController = navController,
-            startDestination = SubGraph.DestGraph
+            startDestination = SubGraph.DestGraph,
+            exitTransition = composable@{
+                return@composable slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Start,
+                    tween(700)
+                )
+            },
+            popEnterTransition = composable@{
+                return@composable slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.End,
+                    tween(700)
+                )
+            }
         ) {
 
 
@@ -99,18 +111,7 @@ fun BottomBar(appState: AppState, navController: NavHostController) {
                 startDestination = Dest.Home,
             ) {
                 composable<Dest.Home>(
-                    exitTransition = {
-                        return@composable slideOutOfContainer(
-                            AnimatedContentTransitionScope.SlideDirection.Start,
-                            tween(700)
-                        )
-                    },
-                    popEnterTransition = {
-                        return@composable slideIntoContainer(
-                            AnimatedContentTransitionScope.SlideDirection.End,
-                            tween(700)
-                        )
-                    }
+
                 ) {
                     val viewModel = hiltViewModel<AllCoursesViewModel>()
                     AllCoursesScreenRoot(
@@ -124,18 +125,7 @@ fun BottomBar(appState: AppState, navController: NavHostController) {
                 }
 
                 composable<SubGraph.CourseDetails>(
-                    exitTransition = {
-                        return@composable slideOutOfContainer(
-                            AnimatedContentTransitionScope.SlideDirection.Start,
-                            tween(700)
-                        )
-                    },
-                    popEnterTransition = {
-                        return@composable slideIntoContainer(
-                            AnimatedContentTransitionScope.SlideDirection.End,
-                            tween(700)
-                        )
-                    }
+
                 ) {
                     val args = it.toRoute<SubGraph.CourseDetails>()
                     val viewModel = hiltViewModel<CourseDetailsViewModel>()
@@ -149,18 +139,7 @@ fun BottomBar(appState: AppState, navController: NavHostController) {
 
                 }
                 composable<Dest.Favorite>(
-                    exitTransition = {
-                        return@composable slideOutOfContainer(
-                            AnimatedContentTransitionScope.SlideDirection.Start,
-                            tween(700)
-                        )
-                    },
-                    popEnterTransition = {
-                        return@composable slideIntoContainer(
-                            AnimatedContentTransitionScope.SlideDirection.End,
-                            tween(700)
-                        )
-                    }
+
                 ) {
                     val viewModel = hiltViewModel<FavoriteViewModel>()
                     FavoriteScreenRoot(
@@ -174,18 +153,7 @@ fun BottomBar(appState: AppState, navController: NavHostController) {
                 }
 
                 composable<Dest.Profile>(
-                    exitTransition = {
-                        return@composable slideOutOfContainer(
-                            AnimatedContentTransitionScope.SlideDirection.Start,
-                            tween(700)
-                        )
-                    },
-                    popEnterTransition = {
-                        return@composable slideIntoContainer(
-                            AnimatedContentTransitionScope.SlideDirection.End,
-                            tween(700)
-                        )
-                    }
+
                 ) {
                     val viewModel = hiltViewModel<ProfileViewModel>()
                     ProfileScreen(

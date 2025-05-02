@@ -23,6 +23,5 @@ fun App() {
     // Provide appState globally (via a CompositionLocal or through viewmodels)
     CompositionLocalProvider(LocalAuthHandler provides appState.authHandler) {
         RootNavGraph(appState, navController)
-
     }
 }

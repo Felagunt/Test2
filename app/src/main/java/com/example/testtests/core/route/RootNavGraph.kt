@@ -22,25 +22,26 @@ fun RootNavGraph(appState: AppState, navController: NavHostController) {
         //val navController = rememberNavController()
         NavHost(
             navController = navController,
-            startDestination = SubGraph.Auth
+            startDestination = SubGraph.Auth,
+            exitTransition = {
+                 slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Start,
+                    tween(700)
+                )
+            },
+            popEnterTransition = {
+                 slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.End,
+                    tween(700)
+                )
+            }
         ) {
             navigation<SubGraph.Auth>(
                 startDestination = Auth.AuthCheck
             ) {
 
                 composable<Auth.AuthCheck>(
-                    exitTransition = {
-                        return@composable slideOutOfContainer(
-                            AnimatedContentTransitionScope.SlideDirection.Start,
-                            tween(700)
-                        )
-                    },
-                    popEnterTransition = {
-                        return@composable slideIntoContainer(
-                            AnimatedContentTransitionScope.SlideDirection.End,
-                            tween(700)
-                        )
-                    }
+
                 ) {
                     val viewModel = hiltViewModel<LogInViewModel>()
                     AuthCheckScreen(
@@ -63,18 +64,7 @@ fun RootNavGraph(appState: AppState, navController: NavHostController) {
                 }
 
                 composable<Auth.Onboarding>(
-                    exitTransition = {
-                        return@composable slideOutOfContainer(
-                            AnimatedContentTransitionScope.SlideDirection.Start,
-                            tween(700)
-                        )
-                    },
-                    popEnterTransition = {
-                        return@composable slideIntoContainer(
-                            AnimatedContentTransitionScope.SlideDirection.End,
-                            tween(700)
-                        )
-                    }
+
                 ) {
                     com.example.ui.dashboard.Onboarding(
                         onClick = {
@@ -90,18 +80,7 @@ fun RootNavGraph(appState: AppState, navController: NavHostController) {
                 }
 
                 composable<Auth.LogIn>(
-                    exitTransition = {
-                        return@composable slideOutOfContainer(
-                            AnimatedContentTransitionScope.SlideDirection.Start,
-                            tween(700)
-                        )
-                    },
-                    popEnterTransition = {
-                        return@composable slideIntoContainer(
-                            AnimatedContentTransitionScope.SlideDirection.End,
-                            tween(700)
-                        )
-                    }
+
                 ) {
                     val viewModel = hiltViewModel<com.example.ui.auth.LogInViewModel>()
 //                    val isLoggedIn = viewModel.isLoggedIn.collectAsStateWithLifecycle()
