@@ -26,6 +26,9 @@ fun App() {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route.orEmpty()
 
+    appState.updateCurrentRoute(currentRoute)
+
+
     val isInAuthFlow = when (currentRoute) {
         Auth.Onboarding::class.qualifiedName,
         Auth.LogIn::class.qualifiedName,

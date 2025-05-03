@@ -12,10 +12,21 @@ import javax.inject.Inject
 class AppState @Inject constructor(
     val authHandler: AuthHandler
 ) {
-    // You can extend this to hold more global states as needed
-    var currentRoute by mutableStateOf("")
+    var currentRoute by mutableStateOf("") // Текущий маршрут
+    var showBottomBar by mutableStateOf(true) // Нужно ли показывать Bottom Bar
 
     fun updateCurrentRoute(route: String) {
         currentRoute = route
+        updateUIBasedOnRoute()
+    }
+
+    // Логика для управления видимостью компонентов UI, как Drawer или BottomBar
+    private fun updateUIBasedOnRoute() {
+        showBottomBar = when (currentRoute) {
+            Dest.Home::class.qualifiedName,
+            Dest.Favorite::class.qualifiedName,
+            Dest.Profile::class.qualifiedName -> true
+            else -> false
+        }
     }
 }

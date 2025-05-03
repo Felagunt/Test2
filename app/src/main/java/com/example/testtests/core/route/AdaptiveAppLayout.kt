@@ -21,7 +21,7 @@ fun AdaptiveAppLayout(appState: AppState, navController: NavHostController) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
-    val showBottomBar = isPortrait && isSmallScreen
+    val showBottomBar = appState.showBottomBar && isPortrait && isSmallScreen
 
     if (!showBottomBar) {
         ModalNavigationDrawer(
