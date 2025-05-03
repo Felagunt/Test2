@@ -54,7 +54,7 @@ fun ScaffoldContent(
         }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
-            mainGraph(appState, navController)
+            RootNavGraph(appState, navController)
         }
     }
 }
